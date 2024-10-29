@@ -1,0 +1,168 @@
+﻿<Page x:Class="HRM.Views.Admin.AdminDashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminDashboard">
+    <ScrollViewer>
+        <StackPanel Margin="24">
+            <!-- Welcome Message -->
+            <TextBlock Text="Tổng quan hệ thống"
+                      Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                      Margin="0,0,0,24"/>
+            <!-- Statistics Cards -->
+            <WrapPanel>
+                <!-- Total Employees -->
+                <materialDesign:Card Width="280" Margin="0,0,16,16" Background="#1a237e">
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="AccountMultiple" 
+                                                   Width="24" Height="24" 
+                                                   Foreground="White"/>
+                            <TextBlock Text="Tổng nhân viên"
+                                     Foreground="White"
+                                     Margin="8,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" 
+                                 Text="{Binding TotalEmployees}"
+                                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                                 Foreground="White"/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- Departments -->
+                <materialDesign:Card Width="280" Margin="0,0,16,16" Background="#00695c">
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="OfficeBuildingMarker" 
+                                                   Width="24" Height="24"
+                                                   Foreground="White"/>
+                            <TextBlock Text="Phòng ban"
+                                     Foreground="White"
+                                     Margin="8,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" 
+                                 Text="{Binding TotalDepartments}"
+                                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                                 Foreground="White"/>
+                    </Grid>
+                </materialDesign:Card>
+
+                <!-- New Employees -->
+                <materialDesign:Card Width="280" Margin="0,0,16,16" Background="#2e7d32">
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="AccountPlus" 
+                                                   Width="24" Height="24"
+                                                   Foreground="White"/>
+                            <TextBlock Text="Nhân viên mới (tháng)"
+                                     Foreground="White"
+                                     Margin="8,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" 
+                                 Text="{Binding NewEmployees}"
+                                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                                 Foreground="White"/>
+                    </Grid>
+                </materialDesign:Card>
+            </WrapPanel>
+
+            <!-- Quick Actions and Recent Activities -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Quick Actions -->
+                <materialDesign:Card Grid.Column="0" Margin="0,0,8,0">
+                    <DockPanel Margin="16">
+                        <TextBlock Text="Thao tác nhanh"
+                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                 DockPanel.Dock="Top"
+                                 Margin="0,0,0,16"/>
+
+                        <WrapPanel>
+                            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="0,0,8,8"
+                                    Command="{Binding AddEmployeeCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AccountPlus" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Thêm nhân viên"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="0,0,8,8"
+                                    Command="{Binding ManageDepartmentsCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="OfficeBuildingCog" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Quản lý phòng ban"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="0,0,8,8"
+                                    Command="{Binding PayrollManagementCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CashMultiple" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Quản lý lương"/>
+                                </StackPanel>
+                            </Button>
+                        </WrapPanel>
+                    </DockPanel>
+                </materialDesign:Card>
+
+                <!-- Recent Activities -->
+                <materialDesign:Card Grid.Column="1" Margin="8,0,0,0">
+                    <DockPanel Margin="16">
+                        <TextBlock Text="Hoạt động gần đây"
+                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                 DockPanel.Dock="Top"
+                                 Margin="0,0,0,16"/>
+
+                        <ListBox ItemsSource="{Binding RecentActivities}"
+                                MaxHeight="300">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <materialDesign:PackIcon Kind="{Binding Icon}"
+                                                               Height="24" Width="24"/>
+
+                                        <StackPanel Grid.Column="1" Margin="16,0">
+                                            <TextBlock Text="{Binding Description}"
+                                                     Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                                            <TextBlock Text="{Binding Time}"
+                                                     Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </materialDesign:Card>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

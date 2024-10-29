@@ -1,0 +1,99 @@
+﻿<Page x:Class="HRM.Views.EmployeeDetailView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:HRM.Views"
+      mc:Ignorable="d"
+      Title="EmployeeDetailView" Height="450" Width="800">
+<ScrollViewer>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <TextBlock Grid.Row="0" Text="{Binding Title}" FontSize="24" Margin="0,0,0,20"/>
+
+            <!-- Employee Details Form -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Photo -->
+                <Label Grid.Row="0" Grid.Column="0" Content="Photo:" Margin="5"/>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <Image Source="{Binding Employee.PhotoPath}" Width="100" Height="100" Margin="5"/>
+                    <Button Content="Change Photo" Command="{Binding ChangePhotoCommand}"
+                            VerticalAlignment="Bottom" Margin="10,0"
+                            IsEnabled="{Binding IsEditable}"/>
+                </StackPanel>
+
+                <!-- Personal Information -->
+                <Label Grid.Row="1" Grid.Column="0" Content="Full Name:" Margin="5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Employee.FullName}"
+                         IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Birth Date:" Margin="5"/>
+                <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Employee.BirthDate}"
+                           IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Gender:" Margin="5"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Genders}"
+                          SelectedItem="{Binding Employee.Gender}"
+                          IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Address:" Margin="5"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Employee.Address}"
+                         IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Phone:" Margin="5"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Employee.Phone}"
+                         IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <!-- Work Information -->
+                <Label Grid.Row="6" Grid.Column="0" Content="Department:" Margin="5"/>
+                <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Departments}"
+                          SelectedItem="{Binding Employee.Department}"
+                          DisplayMemberPath="Name" IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="7" Grid.Column="0" Content="Position:" Margin="5"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Employee.Position}"
+                         IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="8" Grid.Column="0" Content="Salary:" Margin="5"/>
+                <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Employee.Salary}"
+                         IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                <Label Grid.Row="9" Grid.Column="0" Content="Start Date:" Margin="5"/>
+                <DatePicker Grid.Row="9" Grid.Column="1" SelectedDate="{Binding Employee.StartDate}"
+                           IsEnabled="{Binding IsEditable}" Margin="5"/>
+            </Grid>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                <Button Content="Save" Command="{Binding SaveCommand}"
+                        Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Padding="20,5" Margin="5"/>
+                <Button Content="Cancel" Command="{Binding CancelCommand}"
+                        Padding="20,5" Margin="5"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
