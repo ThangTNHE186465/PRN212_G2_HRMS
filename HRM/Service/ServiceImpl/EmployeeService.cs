@@ -1,60 +1,54 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.IO;
+using System.Linq;
 using HRM.Models;
 using HRM.Models.Enum;
 using HRM.Repositories;
 using HRM.Repositories.RepositoryImpl;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using OfficeOpenXml;
 
 namespace HRM.Service.ServiceImpl;
 
-public class EmployeeService
+public class EmployeeService : IEmployeeService
 {
-    private readonly IBaseRepository<Employee> _employeeRepository;
+    private readonly EmployeeRepository _employeeRepository;
+    private readonly ActivityLogService _activityLogService;
     private readonly ILogger<EmployeeService> _logger;
-    private readonly IActivityLogService _activityLogService;
-    // private readonly ISalaryCalculationService _salaryCalculationService;
 
-    public EmployeeService(
-    )
+    public EmployeeService()
     {
         _employeeRepository = new EmployeeRepository(new HrmContext());
-        _logger = new Logger<EmployeeService>(new LoggerFactory());
         _activityLogService = new ActivityLogService();
-        // _salaryCalculationService = salaryCalculationService;
+        _logger = new Logger<EmployeeService>(new LoggerFactory());
     }
 
-    public async Task<Employee> GetByIdAsync(int id)
+    public async Task<Employee?> GetByIdAsync(int id)
     {
         var employee = await _employeeRepository.GetByIdAsync(id);
         if (employee == null)
         {
             throw new KeyNotFoundException($"Employee with ID {id} not found");
         }
-
         return employee;
     }
 
-    public async Task<IEnumerable<Employee>> GetAllAsync()
+    public Task<Employee?> GetByEmployeeCodeAsync(string code)
+    {
+        return _employeeRepository.GetQueryable()
+            .FirstOrDefaultAsync(e => ("EMP" + e.Id.ToString().PadLeft(5, '0')) == code);
+    }
+
+    public async Task<IEnumerable<Employee?>> GetAllEmployees()
     {
         return await _employeeRepository.GetAllAsync();
     }
 
-    public async Task<Employee> CreateEmployeeAsync(Employee employee)
+    public async Task<Employee?> CreateEmployeeAsync(Employee? employee)
     {
         try
         {
-            // // Business validation
-            // if (string.IsNullOrEmpty(employee.EmployeeCode))
-            // {
-            //     throw new ValidationException("Employee code is required");
-            // }
-            //
-            // if (!await _employeeRepository.IsEmployeeCodeUniqueAsync(employee.EmployeeCode))
-            // {
-            //     throw new ValidationException($"Employee code {employee.EmployeeCode} already exists");
-            // }
-
             // Validate required fields
             ValidateEmployee(employee);
 
@@ -66,10 +60,10 @@ public class EmployeeService
             var createdEmployee = await _employeeRepository.AddAsync(employee);
 
             // Log activity
-            await _activityLogService.LogActivityAsync(
-                "Employee Created",
-                $"Created employee: {employee.FirstName + " " + employee.LastName} ({employee.Id})"
-            );
+            // await _activityLogService.LogActivityAsync(
+            //     "Employee Created",
+            //     $"Created employee: {employee.FirstName + " " + employee.LastName} ({employee.Id})"
+            // );
 
             return createdEmployee;
         }
@@ -80,26 +74,24 @@ public class EmployeeService
         }
     }
 
-    public async Task<Employee> UpdateEmployeeAsync(int id, Employee updatedEmployee)
+    public async Task<Employee?> UpdateEmployeeAsync(int id, Employee? updatedEmployee)
     {
         var existingEmployee = await GetByIdAsync(id);
 
         try
         {
-            // Validate required fields
             ValidateEmployee(updatedEmployee);
 
-            // Preserve certain original values
             updatedEmployee.Id = existingEmployee.Id;
             updatedEmployee.ModifiedDate = DateTime.Now;
             updatedEmployee.PhotoPath = existingEmployee.PhotoPath;
 
             await _employeeRepository.UpdateAsync(updatedEmployee);
 
-            await _activityLogService.LogActivityAsync(
-                "Employee Updated",
-                $"Updated employee: {updatedEmployee.FullName} ({updatedEmployee.EmployeeCode})"
-            );
+            // await _activityLogService.LogActivityAsync(
+            //     "Employee Updated",
+            //     $"Updated employee: {updatedEmployee.FullName} ({updatedEmployee.EmployeeCode})"
+            // );
 
             return updatedEmployee;
         }
@@ -110,167 +102,176 @@ public class EmployeeService
         }
     }
 
-    // public async Task<string> UploadAvatarAsync(int id, string avatar)
-    // {
-    //     var employee = await GetByIdAsync(id);
-    //
-    //     try
-    //     {
-    //         // Delete existing avatar if present
-    //         if (!string.IsNullOrEmpty(employee.PhotoPath))
-    //         {
-    //             
-    //         }
-    //         
-    //
-    //         // Save file
-    //         var filePath = await _fileStorageService.SaveFileAsync(avatar, fileName);
-    //
-    //         // Update employee record
-    //         employee.AvatarPath = filePath;
-    //         await _employeeRepository.UpdateAsync(employee);
-    //
-    //         return filePath;
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _logger.LogError(ex, "Error uploading avatar for employee: {Id}", id);
-    //         throw;
-    //     }
-    // }
-    //
-    // public async Task<IEnumerable<Employee>> SearchEmployeesAsync(EmployeeSearchCriteria criteria)
-    // {
-    //     return await _employeeRepository.SearchAsync(criteria);
-    // }
-    //
-    // public async Task<bool> UpdateEmployeeStatusAsync(int id, EmployeeStatus status)
-    // {
-    //     var employee = await GetByIdAsync(id);
-    //
-    //     employee.Status = status;
-    //     await _employeeRepository.UpdateAsync(employee);
-    //
-    //     await _activityLogService.LogActivityAsync(
-    //         "Employee Status Updated",
-    //         $"Updated status for employee {employee.FullName} to {status}"
-    //     );
-    //
-    //     return true;
-    // }
-    //
-    // public async Task<decimal> CalculateTotalSalaryAsync(int employeeId, int month, int year)
-    // {
-    //     var employee = await GetByIdAsync(employeeId);
-    //
-    //     return await _salaryCalculationService.CalculateTotalSalaryAsync(
-    //         employee,
-    //         new DateTime(year, month, 1)
-    //     );
-    // }
-    //
-    // public async Task<byte[]> ExportToExcelAsync(EmployeeSearchCriteria criteria)
-    // {
-    //     try
-    //     {
-    //         var employees = await _employeeRepository.SearchAsync(criteria);
-    //         using var package = new ExcelPackage();
-    //         var worksheet = package.Workbook.Worksheets.Add("Employees");
-    //
-    //         // Add headers
-    //         var headers = new string[]
-    //         {
-    //             "Employee Code",
-    //             "Full Name",
-    //             "Department",
-    //             "Position",
-    //             "Start Date",
-    //             "Basic Salary",
-    //             "Status"
-    //         };
-    //
-    //         for (int i = 0; i < headers.Length; i++)
-    //         {
-    //             worksheet.Cells[1, i + 1].Value = headers[i];
-    //             worksheet.Cells[1, i + 1].Style.Font.Bold = true;
-    //         }
-    //
-    //         // Add data
-    //         int row = 2;
-    //         foreach (var employee in employees)
-    //         {
-    //             worksheet.Cells[row, 1].Value = employee.EmployeeCode;
-    //             worksheet.Cells[row, 2].Value = employee.FullName;
-    //             worksheet.Cells[row, 3].Value = employee.Department?.Name;
-    //             worksheet.Cells[row, 4].Value = employee.Position?.Name;
-    //             worksheet.Cells[row, 5].Value = employee.StartDate.ToShortDateString();
-    //             worksheet.Cells[row, 6].Value = employee.BasicSalary;
-    //             worksheet.Cells[row, 7].Value = employee.Status.ToString();
-    //             row++;
-    //         }
-    //
-    //         worksheet.Cells.AutoFitColumns();
-    //
-    //         return await package.GetAsByteArrayAsync();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _logger.LogError(ex, "Error exporting employees to Excel");
-    //         throw;
-    //     }
-    // }
-    //
-    // public async Task DeleteEmployeeAsync(int id)
-    // {
-    //     var employee = await GetByIdAsync(id);
-    //
-    //     try
-    //     {
-    //         // Delete avatar if exists
-    //         if (!string.IsNullOrEmpty(employee.AvatarPath))
-    //         {
-    //             await _fileStorageService.DeleteFileAsync(employee.AvatarPath);
-    //         }
-    //
-    //         await _employeeRepository.DeleteAsync(id);
-    //
-    //         await _activityLogService.LogActivityAsync(
-    //             "Employee Deleted",
-    //             $"Deleted employee: {employee.FullName} ({employee.EmployeeCode})"
-    //         );
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _logger.LogError(ex, "Error deleting employee: {Id}", id);
-    //         throw;
-    //     }
-    // }
-    
-    private void ValidateEmployee(Employee employee)
+    public async Task DeleteEmployeeAsync(int id)
+    {
+        await _employeeRepository.DeleteAsync(id);
+    }
+
+    public Task<IEnumerable<Employee>> SearchEmployeesAsync
+        (string searchTerm,
+        int? departmentId,
+        DateTime? startDate,
+        DateTime? endDate)
+    {
+        return _employeeRepository.SearchEmployeesAsync(searchTerm, departmentId, startDate, endDate);
+    }
+
+    public Task<byte[]> ExportToExcelAsync(Employee criteria)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<bool> UpdateEmployeeStatusAsync(int id, EmployeeStatus status)
+    {
+
+        Employee? emp = await _employeeRepository.GetByIdAsync(id);
+        if (emp == null)
+        {
+            throw new KeyNotFoundException($"Employee with ID {id} not found");
+        }
+        emp.Status = status;
+        await _employeeRepository.UpdateAsync(emp);
+        return true;
+    }
+
+    public async Task<IEnumerable<Employee?>> FilterEmployeesAsync(string selectedGender, string selectedSalaryRange, DateTime? startDate, DateTime? endDate)
+    {
+        var query = _employeeRepository.GetQueryable();
+
+        if (!string.IsNullOrEmpty(selectedGender) && Enum.TryParse<Gender>(selectedGender, out var gender))
+        {
+            query = query.Where(e => e.Gender == gender);
+        }
+
+        if (!string.IsNullOrEmpty(selectedSalaryRange))
+        {
+            var salaryRange = selectedSalaryRange.Split('-').Select(decimal.Parse).ToArray();
+            query = query.Where(e => e.BasicSalary >= salaryRange[0] && e.BasicSalary <= salaryRange[1]);
+        }
+
+        if (startDate.HasValue)
+        {
+            query = query.Where(e => e.HireDate >= DateOnly.FromDateTime(startDate.Value));
+        }
+
+        if (endDate.HasValue)
+        {
+            query = query.Where(e => e.HireDate <= DateOnly.FromDateTime(endDate.Value));
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<decimal> CalculateTotalSalaryAsync(int employeeId, int month, int year)
+    {
+        // var employee = await _employeeRepository.GetByIdAsync(employeeId);
+        // if (employee == null)
+        // {
+        //     throw new KeyNotFoundException($"Employee with ID {employeeId} not found");
+        // }
+        //
+        // // Assuming you have a method to calculate the salary based on the month and year
+        // var totalSalary = await _salaryCalculationService.CalculateTotalSalaryAsync(employee, new DateTime(year, month, 1));
+        // return totalSalary;
+        return 0;
+    }
+
+    public async Task<bool> UploadAvatarAsync(int id, string avatar)
+    {
+        var employee = await GetByIdAsync(id);
+
+        try
+        {
+            // Update employee record
+            employee.PhotoPath = avatar;
+            await _employeeRepository.UpdateAsync(employee);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error uploading avatar for employee: {Id}", id);
+            throw;
+        }
+    }
+
+    public async Task<byte[]> ExportToExcelAsync(IEnumerable<Employee> employees)
+    {
+        try
+        {
+            using var package = new ExcelPackage();
+            var worksheet = package.Workbook.Worksheets.Add("Employees");
+
+            // Add headers
+            var headers = new string[]
+            {
+                "Employee Code",
+                "Full Name",
+                "Department",
+                "Position",
+                "Start Date",
+                "Basic Salary",
+                "Status"
+            };
+
+            for (int i = 0; i < headers.Length; i++)
+            {
+                worksheet.Cells[1, i + 1].Value = headers[i];
+                worksheet.Cells[1, i + 1].Style.Font.Bold = true;
+            }
+
+            // Add data
+            int row = 2;
+            foreach (var employee in employees)
+            {
+                worksheet.Cells[row, 1].Value = employee.EmployeeCode;
+                worksheet.Cells[row, 2].Value = employee.FullName;
+                worksheet.Cells[row, 3].Value = employee.Department?.Name;
+                worksheet.Cells[row, 4].Value = employee.Phone;
+                worksheet.Cells[row, 5].Value = employee.Email;
+                worksheet.Cells[row, 6].Value = employee.BasicSalary;
+                worksheet.Cells[row, 7].Value = employee.DateOfBirth;
+                worksheet.Cells[row, 8].Value = employee.HireDate;
+                worksheet.Cells[row, 9].Value = employee.BasicSalary;
+                worksheet.Cells[row, 10].Value = employee.Status;
+                row++;
+            }
+
+            worksheet.Cells.AutoFitColumns();
+
+            return await package.GetAsByteArrayAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error exporting employees to Excel");
+            throw;
+        }
+    }
+
+    private void ValidateEmployee(Employee? employee)
     {
         var validationErrors = new List<string>();
-    
+
         if (string.IsNullOrEmpty(employee.FirstName))
             validationErrors.Add("First name is required");
-    
+
         if (string.IsNullOrEmpty(employee.LastName))
             validationErrors.Add("Last name is required");
-    
+
         if (employee.DateOfBirth == default)
             validationErrors.Add("Date of birth is required");
-    
-        if (employee.DateOfBirth < DateOnly.FromDateTime(DateTime.Now.AddYears(-18)))
+
+        if (employee.DateOfBirth > DateOnly.FromDateTime(DateTime.Now.AddYears(-18)))
             validationErrors.Add("Employee must be at least 18 years old");
-    
+
         if (employee.DepartmentId <= 0)
             validationErrors.Add("Department is required");
-    
+
         // if (employee.PositionId <= 0)
         //     validationErrors.Add("Position is required");
-    
+
         if (employee.BasicSalary <= 0)
             validationErrors.Add("Basic salary must be greater than 0");
-    
+
         if (validationErrors.Any())
         {
             throw new ValidationException(
@@ -278,32 +279,32 @@ public class EmployeeService
             );
         }
     }
-    
-    // public async Task<EmployeeStatistics> GetEmployeeStatisticsAsync()
-    // {
-    //     var statistics = new EmployeeStatistics
-    //     {
-    //         TotalEmployees = _employeeRepository.GetAllAsync().Result.Count(),
-    //         ActiveEmployees = (await _employeeRepository.GetActiveEmployeesAsync()).Count(),
-    //         DepartmentStatistics = new List<DepartmentStatistics>()
-    //     };
-    //
-    //     var employees = await _employeeRepository.GetActiveEmployeesAsync();
-    //     var departmentGroups = employees.GroupBy(e => e.Department?.Name);
-    //
-    //     foreach (var group in departmentGroups)
-    //     {
-    //         if (!string.IsNullOrEmpty(group.Key))
-    //         {
-    //             statistics.DepartmentStatistics.Add(new DepartmentStatistics
-    //             {
-    //                 DepartmentName = group.Key,
-    //                 EmployeeCount = group.Count(),
-    //                 TotalSalary = group.Sum(e => e.BasicSalary)
-    //             });
-    //         }
-    //     }
-    //
-    //     return statistics;
-    // }
+
+    //public async Task<EmployeeStatistics> GetEmployeeStatisticsAsync()
+    //{
+    //    var statistics = new EmployeeStatistics
+    //    {
+    //        TotalEmployees = _employeeRepository.GetAllAsync().Result.Count(),
+    //        ActiveEmployees = (await _employeeRepository.GetActiveEmployeesAsync()).Count(),
+    //        DepartmentStatistics = new List<DepartmentStatistics>()
+    //    };
+
+    //    var employees = await _employeeRepository.GetActiveEmployeesAsync();
+    //    var departmentGroups = employees.GroupBy(e => e.Department?.Name);
+
+    //    foreach (var group in departmentGroups)
+    //    {
+    //        if (!string.IsNullOrEmpty(group.Key))
+    //        {
+    //            statistics.DepartmentStatistics.Add(new DepartmentStatistics
+    //            {
+    //                DepartmentName = group.Key,
+    //                EmployeeCount = group.Count(),
+    //                TotalSalary = group.Sum(e => e.BasicSalary)
+    //            });
+    //        }
+    //    }
+
+    //    return statistics;
+    //}
 }

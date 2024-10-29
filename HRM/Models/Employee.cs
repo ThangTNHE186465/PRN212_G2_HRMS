@@ -14,6 +14,8 @@ public partial class Employee
 
     public string LastName { get; set; } = null!;
 
+    public Gender Gender { get; set; }
+
     public string Email { get; set; } = null!;
 
     public string? Phone { get; set; }
@@ -48,6 +50,19 @@ public partial class Employee
 
     public virtual User User { get; set; } = null!;
 
-    public string FullName => FirstName + " " + LastName;
+    public string FullName
+    {
+        get => FirstName + " " + LastName;
+        set
+        {
+            var names = value.Split(' ');
+            if (names.Length >= 2)
+            {
+                FirstName = names[0];
+                LastName = string.Join(' ', names.Skip(1));
+            }
+        }
+    }
+
     public string EmployeeCode => "EMP" + Id.ToString().PadLeft(5, '0');
 }
