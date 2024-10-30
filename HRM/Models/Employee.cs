@@ -50,7 +50,7 @@ public partial class Employee
 
     public virtual User User { get; set; } = null!;
 
-    public string FullName
+    public string? FullName
     {
         get => FirstName + " " + LastName;
         set
