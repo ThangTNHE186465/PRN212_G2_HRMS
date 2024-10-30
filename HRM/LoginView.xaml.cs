@@ -8,6 +8,7 @@ public partial class LoginView : Window
     public LoginView()
     {
         InitializeComponent();
+        DataContext = new LoginViewModel(this);
         PasswordBox.PasswordChanged += (s, e) =>
         {
             if (DataContext is LoginViewModel vm)

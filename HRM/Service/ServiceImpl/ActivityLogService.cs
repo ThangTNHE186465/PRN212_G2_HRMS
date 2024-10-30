@@ -6,4 +6,9 @@ public class ActivityLogService : IActivityLogService
     {
         throw new NotImplementedException();
     }
+
+    public Task LogActivityAsync(string employeeCreated, string s)
+    {
+        throw new NotImplementedException();
+    }
 }

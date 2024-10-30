@@ -12,13 +12,29 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task<User> GetByUsernameAsync(string username)
     {
-        return await _dbSet.FirstOrDefaultAsync(u => 
+        return await _dbSet.FirstOrDefaultAsync(u =>
             u.Username.ToLower() == username.ToLower());
     }
 
     public async Task<bool> IsUsernameTakenAsync(string username)
     {
-        return await _dbSet.AnyAsync(u => 
+        return await _dbSet.AnyAsync(u =>
+            u.Username.ToLower() == username.ToLower());
+    }
+
+    public UserRepository() : base(new HrmContext())
+    {
+    }
+
+    public async Task<User> GetByUsernameAsync(string username)
+    {
+        return await _dbSet.FirstOrDefaultAsync(u =>
+            u.Username.ToLower() == username.ToLower());
+    }
+
+    public async Task<bool> IsUsernameTakenAsync(string username)
+    {
+        return await _dbSet.AnyAsync(u =>
             u.Username.ToLower() == username.ToLower());
     }
 }
