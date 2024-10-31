@@ -1,11 +1,14 @@
-﻿namespace HRM.Repositories;
+﻿using HRM.Models;
+
+namespace HRM.Repositories;
 
 public interface IBaseRepository<TEntity> where TEntity : class
 {
-    Task<TEntity> GetByIdAsync(int id);
-    Task<IEnumerable<TEntity>> GetAllAsync();
-    Task<TEntity> AddAsync(TEntity entity);
-    Task UpdateAsync(TEntity entity);
+    Task<TEntity?> GetByIdAsync(int id);
+    Task<IEnumerable<TEntity?>> GetAllAsync();
+    Task<TEntity?> AddAsync(TEntity? entity);
+    Task UpdateAsync(TEntity? entity);
     Task DeleteAsync(int id);
-    IQueryable<TEntity> GetQueryable();
+    IQueryable<TEntity?> GetQueryable();
+    IQueryable<TEntity?> AddIncludes(IQueryable<TEntity?> query);
 }

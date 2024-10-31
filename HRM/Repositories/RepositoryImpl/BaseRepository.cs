@@ -6,7 +6,7 @@ namespace HRM.Repositories.RepositoryImpl;
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     private readonly HrmContext _context;
-    protected readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity?> _dbSet;
 
     public BaseRepository(HrmContext context)
     {
@@ -14,11 +14,13 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         _dbSet = context.Set<TEntity>();
     }
 
-    public virtual async Task<TEntity> GetByIdAsync(int id)
+    public virtual async Task<TEntity?> GetByIdAsync(int id)
     {
         try
         {
-            return await _dbSet.FindAsync(id);
+            IQueryable<TEntity?> query = _dbSet;
+            query = AddIncludes(query);
+            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
         catch (Exception e)
         {
@@ -27,11 +29,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         }
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<IEnumerable<TEntity?>> GetAllAsync()
     {
         try
         {
-            return await _dbSet.ToListAsync();
+            IQueryable<TEntity?> query = _dbSet;
+            query = AddIncludes(query);
+
+            return await query.ToListAsync();
         }
         catch (Exception e)
         {
@@ -40,7 +45,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         }
     }
 
-    public virtual async Task<TEntity> AddAsync(TEntity entity)
+    public virtual async Task<TEntity?> AddAsync(TEntity? entity)
     {
         try
         {
@@ -55,7 +60,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         }
     }
 
-    public virtual async Task UpdateAsync(TEntity entity)
+    public virtual async Task UpdateAsync(TEntity? entity)
     {
         try
         {
@@ -87,7 +92,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         }
     }
 
-    public virtual IQueryable<TEntity> GetQueryable()
+    public virtual IQueryable<TEntity?> GetQueryable()
     {
         try
         {
@@ -98,5 +103,10 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
             Console.WriteLine(e);
             throw;
         }
+    }
+
+    public virtual IQueryable<TEntity?> AddIncludes(IQueryable<TEntity?> query)
+    {
+        return query;
     }
 }
