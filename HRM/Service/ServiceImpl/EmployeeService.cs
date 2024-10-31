@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using HRM.Models;
 using HRM.Models.Enum;
@@ -32,6 +33,12 @@ public class EmployeeService : IEmployeeService
             throw new KeyNotFoundException($"Employee with ID {id} not found");
         }
         return employee;
+    }
+
+    public async Task<Employee?> GetByUserId(int userId)
+    {
+        return await _employeeRepository.GetQueryable()
+            .FirstOrDefaultAsync(e => e.UserId == userId);
     }
 
     public Task<Employee?> GetByEmployeeCodeAsync(string code)
@@ -107,18 +114,12 @@ public class EmployeeService : IEmployeeService
         await _employeeRepository.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<Employee>> SearchEmployeesAsync
-        (string searchTerm,
+    public Task<IEnumerable<Employee>> SearchEmployeesAsync(string? searchTerm,
         int? departmentId,
         DateTime? startDate,
         DateTime? endDate)
     {
         return _employeeRepository.SearchEmployeesAsync(searchTerm, departmentId, startDate, endDate);
-    }
-
-    public Task<byte[]> ExportToExcelAsync(Employee criteria)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<bool> UpdateEmployeeStatusAsync(int id, EmployeeStatus status)
@@ -134,7 +135,7 @@ public class EmployeeService : IEmployeeService
         return true;
     }
 
-    public async Task<IEnumerable<Employee?>> FilterEmployeesAsync(string selectedGender, string selectedSalaryRange, DateTime? startDate, DateTime? endDate)
+    public async Task<IEnumerable<Employee?>> FilterEmployeesAsync(string? selectedGender, string selectedSalaryRange, DateTime? startDate, DateTime? endDate)
     {
         var query = _employeeRepository.GetQueryable();
 
@@ -176,6 +177,7 @@ public class EmployeeService : IEmployeeService
         return 0;
     }
 
+
     public async Task<bool> UploadAvatarAsync(int id, string avatar)
     {
         var employee = await GetByIdAsync(id);
@@ -194,10 +196,11 @@ public class EmployeeService : IEmployeeService
         }
     }
 
-    public async Task<byte[]> ExportToExcelAsync(IEnumerable<Employee> employees)
+    public async Task<byte[]> ExportToExcelAsync(ObservableCollection<Employee?> employees)
     {
         try
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using var package = new ExcelPackage();
             var worksheet = package.Workbook.Worksheets.Add("Employees");
 
@@ -207,9 +210,11 @@ public class EmployeeService : IEmployeeService
                 "Employee Code",
                 "Full Name",
                 "Department",
-                "Position",
-                "Start Date",
+                "Phone",
+                "Email",
                 "Basic Salary",
+                "Date of Birth",
+                "Hired Date",
                 "Status"
             };
 
@@ -231,8 +236,7 @@ public class EmployeeService : IEmployeeService
                 worksheet.Cells[row, 6].Value = employee.BasicSalary;
                 worksheet.Cells[row, 7].Value = employee.DateOfBirth;
                 worksheet.Cells[row, 8].Value = employee.HireDate;
-                worksheet.Cells[row, 9].Value = employee.BasicSalary;
-                worksheet.Cells[row, 10].Value = employee.Status;
+                worksheet.Cells[row, 9].Value = employee.Status;
                 row++;
             }
 
@@ -280,31 +284,31 @@ public class EmployeeService : IEmployeeService
         }
     }
 
-    //public async Task<EmployeeStatistics> GetEmployeeStatisticsAsync()
-    //{
-    //    var statistics = new EmployeeStatistics
-    //    {
-    //        TotalEmployees = _employeeRepository.GetAllAsync().Result.Count(),
-    //        ActiveEmployees = (await _employeeRepository.GetActiveEmployeesAsync()).Count(),
-    //        DepartmentStatistics = new List<DepartmentStatistics>()
-    //    };
+    public async Task<EmployeeStatistics> GetEmployeeStatisticsAsync()
+    {
+        var statistics = new EmployeeStatistics
+        {
+            TotalEmployees = _employeeRepository.GetAllAsync().Result.Count(),
+            ActiveEmployees = (await _employeeRepository.GetActiveEmployeesAsync()).Count(),
+            DepartmentStatistics = new List<DepartmentStatistics>()
+        };
 
-    //    var employees = await _employeeRepository.GetActiveEmployeesAsync();
-    //    var departmentGroups = employees.GroupBy(e => e.Department?.Name);
+        var employees = await _employeeRepository.GetActiveEmployeesAsync();
+        var departmentGroups = employees.GroupBy(e => e.Department?.Name);
 
-    //    foreach (var group in departmentGroups)
-    //    {
-    //        if (!string.IsNullOrEmpty(group.Key))
-    //        {
-    //            statistics.DepartmentStatistics.Add(new DepartmentStatistics
-    //            {
-    //                DepartmentName = group.Key,
-    //                EmployeeCount = group.Count(),
-    //                TotalSalary = group.Sum(e => e.BasicSalary)
-    //            });
-    //        }
-    //    }
+        foreach (var group in departmentGroups)
+        {
+            if (!string.IsNullOrEmpty(group.Key))
+            {
+                statistics.DepartmentStatistics.Add(new DepartmentStatistics
+                {
+                    DepartmentName = group.Key,
+                    EmployeeCount = group.Count(),
+                    TotalSalary = group.Sum(e => e.BasicSalary)
+                });
+            }
+        }
 
-    //    return statistics;
-    //}
+        return statistics;
+    }
 }
