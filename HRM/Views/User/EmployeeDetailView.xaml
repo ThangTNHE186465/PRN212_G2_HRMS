@@ -35,8 +35,23 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <!-- Photo -->
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0" Text="{Binding Title}" FontSize="24" Margin="0,0,0,20"/>
+
+                    <!-- Employee Details Form -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Photo -->
                 <Label Grid.Row="0" Grid.Column="0" Content="Photo:" Margin="5"/>
                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                     <Image Source="{Binding Employee.PhotoPath}" Width="100" Height="100" Margin="5"/>
@@ -58,7 +73,26 @@
                 <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Genders}"
                           SelectedItem="{Binding Employee.Gender}"
                           IsEnabled="{Binding IsEditable}" Margin="5"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Photo:" Margin="5"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <Image Source="{Binding Employee.PhotoPath}" Width="100" Height="100" Margin="5"/>
+                            <Button Content="Change Photo" Command="{Binding ChangePhotoCommand}"
+              VerticalAlignment="Bottom" Margin="10,0"
+              IsEnabled="{Binding IsEditable}"/>
+                        </StackPanel>
 
+                        <!-- Personal Information -->
+                        <Label Grid.Row="1" Grid.Column="0" Content="Full Name:" Margin="5"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Employee.FullName}"
+           IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Birth Date:" Margin="5"/>
+                        <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Employee.BirthDate}"
+             IsEnabled="{Binding IsEditable}" Margin="5"/>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Gender:" Margin="5"/>
+                        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Genders}"
+            SelectedItem="
                 <Label Grid.Row="4" Grid.Column="0" Content="Address:" Margin="5"/>
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Employee.Address}"
                          IsEnabled="{Binding IsEditable}" Margin="5"/>

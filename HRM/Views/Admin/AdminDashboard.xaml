@@ -34,6 +34,24 @@
                                  Text="{Binding TotalEmployees}"
                                  Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                                  Foreground="White"/>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="AccountMultiple" 
+                               Width="24" Height="24" 
+                               Foreground="White"/>
+                            <TextBlock Text="Tổng nhân viên"
+                 Foreground="White"
+                 Margin="8,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="1" 
+             Text="{Binding TotalEmployees}"
+             Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+             Foreground="White"/>
+                    </Grid>
                     </Grid>
                 </materialDesign:Card>
 
