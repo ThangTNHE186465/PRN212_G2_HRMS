@@ -37,7 +37,25 @@
                              Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                              VerticalAlignment="Center"/>
                 </StackPanel>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
+                <!-- Logo và tên hệ thống -->
+                <StackPanel Grid.Column="0" 
+                   Orientation="Horizontal" 
+                   Margin="16,8">
+                    <materialDesign:PackIcon Kind="Domain" 
+                                    Width="24" 
+                                    Height="24"
+                                    VerticalAlignment="Center"/>
+                    <TextBlock Text="HRM System" 
+                      Margin="8,0,0,0"
+                      Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                      VerticalAlignment="Center"/>
+                </StackPanel>
                 <!-- Menu Items -->
                 <Menu Grid.Column="1" 
                       Background="Transparent" 

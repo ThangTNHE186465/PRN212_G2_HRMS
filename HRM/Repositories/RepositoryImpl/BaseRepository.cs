@@ -104,7 +104,45 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
             throw;
         }
     }
+    public async Task<IEnumerable<Employee>> SearchEmployeesAsync(
+       string? searchTerm,
+       int? departmentId,
+       DateTime? startDate,
+       DateTime? endDate)
+    {
+        var query = _dbSet.AsQueryable();
 
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            query = query.Where(e =>
+                e.FullName.Contains(searchTerm) ||
+                e.EmployeeCode.Contains(searchTerm) ||
+                e.Phone!.Contains(searchTerm) ||
+                e.Address!.Contains(searchTerm) ||
+                e.Gender.ToString().Contains(searchTerm) ||
+                e.Email.Contains(searchTerm));
+        }
+
+        if (departmentId.HasValue && departmentId != 0)
+        {
+            query = query.Where(e => e.DepartmentId == departmentId);
+        }
+
+        if (startDate.HasValue)
+        {
+            query = query.Where(e => e.HireDate >= DateOnly.FromDateTime(startDate.Value));
+        }
+
+        if (endDate.HasValue)
+        {
+            query = query.Where(e => e.HireDate <= DateOnly.FromDateTime(endDate.Value));
+        }
+
+        return await query
+            .Include(e => e.Department)
+            .OrderBy(e => e.LastName)
+            .ToListAsync();
+    }
     public virtual IQueryable<TEntity?> AddIncludes(IQueryable<TEntity?> query)
     {
         return query;

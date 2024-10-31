@@ -1,6 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Navigation;
+using HRM.Models;
+using HRM.Repositories.RepositoryImpl;
 using HRM.Views;
+using Microsoft.Extensions.Logging;
 
 namespace HRM.Service.ServiceImpl;
 
@@ -64,4 +67,30 @@ private void Frame_Navigated(object sender, NavigationEventArgs e)
     {
         Navigated?.Invoke(this, e);
     }
+    public EmployeeService()
+    {
+        _employeeRepository = new EmployeeRepository(new HrmContext());
+        _activityLogService = new ActivityLogService();
+        _logger = new Logger<EmployeeService>(new LoggerFactory());
+    }
+
+    public async Task<Employee?> GetByIdAsync(int id)
+    {
+        var employee = await _employeeRepository.GetByIdAsync(id);
+        if (employee == null)
+        {
+            throw new KeyNotFoundException($"Employee with ID {id} not found");
+        }
+        return employee;
+    }
+    public void NavigateToLogin()
+    {
+        NavigateTo("LoginView");
+    }
+
+    private void Frame_Navigated(object sender, NavigationEventArgs e)
+    {
+        Navigated?.Invoke(this, e);
+    }
+
 }
