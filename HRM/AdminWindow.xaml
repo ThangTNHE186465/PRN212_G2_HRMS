@@ -8,7 +8,6 @@
         Style="{StaticResource MaterialDesignWindow}"
         WindowState="Maximized"
         Title="AdminWindow">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,42 +23,20 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Logo và tên hệ thống -->
-                <StackPanel Grid.Column="0" 
-                          Orientation="Horizontal" 
-                          Margin="16,8">
-                    <materialDesign:PackIcon Kind="Domain" 
-                                           Width="24" 
-                                           Height="24"
-                                           VerticalAlignment="Center"/>
-                    <TextBlock Text="HRM System" 
-                             Margin="8,0,0,0"
-                             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                             VerticalAlignment="Center"/>
-                </StackPanel>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Logo và tên hệ thống -->
-                <StackPanel Grid.Column="0" 
-                   Orientation="Horizontal" 
-                   Margin="16,8">
-                    <materialDesign:PackIcon Kind="Domain" 
-                                    Width="24" 
-                                    Height="24"
-                                    VerticalAlignment="Center"/>
-                    <TextBlock Text="HRM System" 
-                      Margin="8,0,0,0"
-                      Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                      VerticalAlignment="Center"/>
-                </StackPanel>
                 <!-- Menu Items -->
                 <Menu Grid.Column="1" 
                       Background="Transparent" 
                       Margin="16,0">
+                    <MenuItem Header="HRM System"
+                              Command="{Binding NavigateCommand}"
+                              CommandParameter="Home">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Domain" 
+                                                     Width="24" 
+                                                     Height="24"
+                                                     VerticalAlignment="Center"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="Quản lý nhân sự"
                               Command="{Binding NavigateCommand}"
                               CommandParameter="EmployeeManagement">
@@ -76,7 +53,7 @@
                     </MenuItem>
                     <MenuItem Header="Quản lý lương"
                               Command="{Binding NavigateCommand}"
-                              CommandParameter="PayrollManagement">
+                              CommandParameter="SalaryManagement">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="CashMultiple"/>
                         </MenuItem.Icon>

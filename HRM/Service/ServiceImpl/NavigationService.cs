@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using HRM.Views;
+using HRM.Views.Admin;
+using HRM.Views.User;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 using HRM.Models;
-using HRM.Repositories.RepositoryImpl;
-using HRM.Views;
-using Microsoft.Extensions.Logging;
 
 namespace HRM.Service.ServiceImpl;
 
@@ -11,19 +11,42 @@ public class NavigationService : INavigationService
 {
     private readonly Frame _frame;
     private readonly Dictionary<string, Type> _pageMap;
-    private object _parameter;
+    private object _parameter = null!;
 
+    public string LastPageVisited { get; private set; } = string.Empty;
+
+    public void OnNavigated(object sender, EventArgs e)
+    {
+        if (sender is Frame frame && frame.Content is Page page)
+        {
+            LastPageVisited = page.GetType().Name;
+            UserSession.Instance.LastPageVisited = LastPageVisited;
+        }
+    }
+
+    public NavigationService()
+    {
+
+    }
     public NavigationService(Frame frame)
     {
         _frame = frame ?? throw new ArgumentNullException(nameof(frame));
-        _frame.Navigated += Frame_Navigated;
+        _frame.Navigated += OnNavigated;
 
         // Đăng ký các pages
         _pageMap = new Dictionary<string, Type>
         {
             { "LoginView", typeof(LoginView) },
+            { "AdminDashboard", typeof(AdminDashboard) },
+            { "UserDashboard", typeof(UserDashboard) },
             { "EmployeeListView", typeof(EmployeeListView) },
             { "EmployeeDetailView", typeof(EmployeeDetailView) },
+            { "DepartmentListView", typeof(DepartmentListView) },
+            { "DepartmentDetailView", typeof(DepartmentDetailView) },
+            { "SalaryManagementView", typeof(SalaryManagementView)},
+            {"TimekeepingManagementView", typeof(TimekeepingManagementView)},
+            {"ReportView", typeof(ReportView)},
+            {"UserProfileView", typeof(UserProfileView)}
         };
     }
 
@@ -31,7 +54,7 @@ public class NavigationService : INavigationService
 
     public object Parameter => _parameter;
 
-    public event EventHandler<NavigationEventArgs> Navigated;
+    public event EventHandler<NavigationEventArgs> Navigated = null!;
 
     public void GoBack()
     {
@@ -63,34 +86,8 @@ public class NavigationService : INavigationService
         NavigateTo("LoginView");
     }
 
-private void Frame_Navigated(object sender, NavigationEventArgs e)
-    {
-        Navigated?.Invoke(this, e);
-    }
-    public EmployeeService()
-    {
-        _employeeRepository = new EmployeeRepository(new HrmContext());
-        _activityLogService = new ActivityLogService();
-        _logger = new Logger<EmployeeService>(new LoggerFactory());
-    }
-
-    public async Task<Employee?> GetByIdAsync(int id)
-    {
-        var employee = await _employeeRepository.GetByIdAsync(id);
-        if (employee == null)
-        {
-            throw new KeyNotFoundException($"Employee with ID {id} not found");
-        }
-        return employee;
-    }
-    public void NavigateToLogin()
-    {
-        NavigateTo("LoginView");
-    }
-
     private void Frame_Navigated(object sender, NavigationEventArgs e)
     {
         Navigated?.Invoke(this, e);
     }
-
 }
