@@ -14,4 +14,7 @@ public partial class Department
     public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
+    // New property for binding purposes
+    public int EmployeeCount => Employees.Count;
 }

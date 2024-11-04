@@ -9,7 +9,7 @@ public partial class Employee
 
     public string FullName { get; set; } = null!;
 
-    public DateOnly DateOfBirth { get; set; }
+    public DateTime DateOfBirth { get; set; }
 
     public string Gender { get; set; } = null!;
 
@@ -25,7 +25,7 @@ public partial class Employee
 
     public double Salary { get; set; }
 
-    public DateOnly StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
     public string? ProfilePicture { get; set; }
 
