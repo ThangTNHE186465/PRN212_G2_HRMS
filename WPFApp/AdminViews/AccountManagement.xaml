@@ -1,0 +1,239 @@
+﻿<Window x:Class="WPFApp.AccountManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp"
+        mc:Ignorable="d"
+        Title="Account Management" Height="Auto" Width="Auto" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <local:HeaderAdmin Grid.Row="0"/>
+
+        <!-- Main Content -->
+        <Border Grid.Row="1" 
+                Background="#f5f6fa" 
+                Padding="40,30">
+            <Grid MaxWidth="1200">
+                <StackPanel>
+                    <!-- Page Title -->
+                    <Grid Margin="0,0,0,30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Text="Quản lý tài khoản" 
+                                 FontSize="28" 
+                                 FontWeight="Bold" 
+                                 Foreground="#2c3e50"/>
+                    </Grid>
+
+                    <!-- DataGrid Section -->
+                    <Border Background="White" 
+                            CornerRadius="10" 
+                            Padding="20" 
+                            Effect="{DynamicResource ShadowEffect}"
+                            Margin="0,0,0,20">
+                        <DataGrid x:Name="AccountDataGrid" 
+                                AutoGenerateColumns="False"
+                                Height="200"
+                                BorderThickness="1"
+                                BorderBrush="#e1e8ed"
+                                RowHeaderWidth="0"
+                                CanUserAddRows="False"
+                                SelectionChanged="AccountDataGrid_SelectionChanged"
+                                Style="{DynamicResource CustomDataGridStyle}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Account ID" Binding="{Binding AccountId}" Width="*"/>
+                                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
+                                <DataGridTextColumn Header="Role" Binding="{Binding Role.RoleName}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
+                    <!-- Account Details Form -->
+                    <Border Background="White" 
+                            CornerRadius="10" 
+                            Padding="30" 
+                            Effect="{DynamicResource ShadowEffect}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Left Column -->
+                            <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                                <TextBlock Text="Account ID" 
+                                         Style="{DynamicResource FormLabelStyle}"/>
+                                <Border Style="{DynamicResource TextBoxBorderStyle}">
+                                    <TextBox x:Name="AccountIdTextBox" 
+                                           Style="{DynamicResource FormTextBoxStyle}"
+                                           IsReadOnly="True"/>
+                                </Border>
+
+                                <TextBlock Text="Username" 
+                                         Style="{DynamicResource FormLabelStyle}"/>
+                                <Border Style="{DynamicResource TextBoxBorderStyle}">
+                                    <TextBox x:Name="UsernameTextBox" 
+                                           Style="{DynamicResource FormTextBoxStyle}"/>
+                                </Border>
+                            </StackPanel>
+
+                            <!-- Right Column -->
+                            <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                                <TextBlock Text="Password" 
+                                         Style="{DynamicResource FormLabelStyle}"/>
+                                <Border Style="{DynamicResource TextBoxBorderStyle}">
+                                    <TextBox x:Name="PasswordTextBox" 
+                                           Style="{DynamicResource FormTextBoxStyle}"/>
+                                </Border>
+
+                                <TextBlock Text="Role" 
+                                         Style="{DynamicResource FormLabelStyle}"/>
+                                <Border Style="{DynamicResource TextBoxBorderStyle}">
+                                    <ComboBox x:Name="RoleCombobox" 
+                                            Style="{DynamicResource FormComboBoxStyle}"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Orientation="Horizontal" 
+                              HorizontalAlignment="Right" 
+                              Margin="0,20,0,0">
+                        <Button Content="Reset" 
+                                Style="{DynamicResource SecondaryButtonStyle}"
+                                Click="Button_Click"/>
+                        <Button x:Name="AddAccount" 
+                                Content="Add" 
+                                Style="{DynamicResource SuccessButtonStyle}"
+                                Click="AddAccount_Click"/>
+                        <Button x:Name="EditAccount" 
+                                Content="Edit" 
+                                Style="{DynamicResource PrimaryButtonStyle}"
+                                Click="EditAccount_Click"/>
+                        <Button x:Name="DeleteAccount" 
+                                Content="Delete" 
+                                Style="{DynamicResource DangerButtonStyle}"
+                                Click="DeleteAccount_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+
+    <!-- Resource Dictionary -->
+    <Window.Resources>
+        <!-- Common Button Style Base -->
+        <Style x:Key="BaseButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#4A90E2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#357ABD"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#6c757d"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#5a6268"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SuccessButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#2ecc71"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#27ae60"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#E94E77"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#C91E4F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Form Styles -->
+        <Style x:Key="FormLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#34495e"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <Style x:Key="TextBoxBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="#f8f9fa"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+
+        <Style x:Key="FormTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="FormComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- DataGrid Style -->
+        <Style x:Key="CustomDataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#e1e8ed"/>
+            <Setter Property="AlternatingRowBackground" Value="#f8f9fa"/>
+            <Setter Property="RowHeight" Value="40"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+
+        <DropShadowEffect x:Key="ShadowEffect" 
+                         BlurRadius="10" 
+                         ShadowDepth="1" 
+                         Direction="270" 
+                         Color="#1a000000"/>
+    </Window.Resources>
+</Window>
