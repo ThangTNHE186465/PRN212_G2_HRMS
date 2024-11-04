@@ -1,0 +1,140 @@
+﻿<Window x:Class="WPFApp.AdminDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:local="clr-namespace:WPFApp"
+        xmlns:converter="clr-namespace:WPFApp.Converter"
+        Title="Admin Dashboard"
+        Height="Auto" Width="Auto"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:NewNotificationBackgroundConverter x:Key="NewNotificationBackgroundConverter" />
+        <!-- Info card styling -->
+        <Style x:Key="InfoCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Card title styling -->
+        <Style x:Key="CardTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header height -->
+            <RowDefinition Height="*"/>
+            <!-- Main content area -->
+        </Grid.RowDefinitions>
+
+        <!-- Top Navigation Menu -->
+        <local:HeaderAdmin Grid.Row="0"/>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Background="#F5F6FA">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="30">
+                    <TextBlock Text="Bảng Điều Khiển" 
+                             FontSize="28" 
+                             FontWeight="Bold" 
+                             Margin="10,0,0,30" 
+                             Foreground="#2C3E50"/>
+
+                    <!-- Statistics overview -->
+                    <WrapPanel>
+                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
+                            <StackPanel>
+                                <TextBlock Text="Tổng Nhân Viên" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="TotalEmployeesTextBlock" 
+                                         FontSize="24" 
+                                         FontWeight="Bold" 
+                                         Foreground="#4A90E2"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
+                            <StackPanel>
+                                <TextBlock Text="Tổng Chi Phí Lương" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="TotalSalaryExpenseTextBlock" 
+                                         FontSize="24" 
+                                         FontWeight="Bold" 
+                                         Foreground="#2ECC71"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
+                            <StackPanel>
+                                <TextBlock Text="Yêu Cầu Nghỉ Phép" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="PendingLeaveRequestsTextBlock" 
+                                         FontSize="24" 
+                                         FontWeight="Bold" 
+                                         Foreground="#E74C3C"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+
+                    <!-- Department and Attendance Statistics -->
+                    <Grid Margin="0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Department stats -->
+                        <Border Grid.Column="0" Style="{StaticResource InfoCardStyle}" Margin="10,10,5,10">
+                            <ItemsControl x:Name="EmployeesByDepartmentItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBlock Text="{Binding DepartmentName}" Width="150" FontWeight="Bold" />
+                                            <TextBlock Text="{Binding EmployeeCount}" Width="100" TextAlignment="Center" />
+                                            <TextBlock Text="{Binding Percentage}" Width="80" TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+
+                        
+                    </Grid>
+
+                    <!-- Notifications -->
+                    <Border Style="{StaticResource InfoCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="Thông Báo Mới Nhất" Style="{StaticResource CardTitleStyle}"/>
+                            <ItemsControl x:Name="NotificationsItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" Margin="5" Background="{Binding IsNew, Converter={StaticResource NewNotificationBackgroundConverter}}">
+                                            <TextBlock Text="{Binding Content}" FontWeight="Bold" FontSize="14" />
+                                            <TextBlock Text="{Binding Date}" FontSize="12" Foreground="Gray" Margin="0,2,0,0"/>
+                
+                                            <!-- Đánh dấu cho thông báo mới -->
+                                            <TextBlock Text="New" FontWeight="Bold" Foreground="Red" 
+                                                       Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                                       FontSize="12" Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
