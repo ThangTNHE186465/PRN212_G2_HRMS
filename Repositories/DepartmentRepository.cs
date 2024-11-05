@@ -19,4 +19,12 @@ namespace Repositories
 
         public void UpdateDepartment(Department department)
             => DepartmentDAO.UpdateDepartment(department);
+
+        public List<Department> GetDepartments()
+            => DepartmentDAO.GetDepartments();
+
+        public int GetEmployeeCountByDepartment(int departmentId)
+            => DepartmentDAO.GetEmployeeCountByDepartment(departmentId);
+
+    }
 }
