@@ -1,0 +1,159 @@
+﻿<Window x:Class="WPFApp.SalaryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp"
+        mc:Ignorable="d"
+        Title="SalaryView" Height="Auto" Width="Auto" WindowState="Maximized"
+        Background="#F5F6FA">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="HeaderText">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#2D3748"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <local:HeaderAdmin Grid.Row="0"/>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title and Search (if needed) -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="Danh sách lương" FontSize="20" FontWeight="Bold" Foreground="#2D3748"/>
+            </Grid>
+
+            <!-- DataGrid -->
+            <Border Grid.Row="1" Background="White" CornerRadius="8" BorderBrush="#E2E8F0" BorderThickness="1">
+                <DataGrid x:Name="SalaryDataGrid" AutoGenerateColumns="False"
+                         SelectionChanged="SalaryDataGrid_SelectionChanged"
+                         Background="Transparent" BorderThickness="0"
+                         RowHeaderWidth="0" GridLinesVisibility="None"
+                         CanUserAddRows="False" 
+                         AlternatingRowBackground="#F8FAFC"
+                         RowBackground="White"
+                         HeadersVisibility="Column">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F8FAFC"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding SalaryId}" Width="80"/>
+                        <DataGridTextColumn Header="Tên Nhân Viên" Binding="{Binding Employee.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" Width="100"/>
+                        <DataGridTextColumn Header="Lương Cơ Bản" Binding="{Binding BaseSalary}" Width="120"/>
+                        <DataGridTextColumn Header="Phụ Cấp" Binding="{Binding Allowance}" Width="100"/>
+                        <DataGridTextColumn Header="Thưởng" Binding="{Binding Bonus}" Width="100"/>
+                        <DataGridTextColumn Header="Phạt" Binding="{Binding Penalty}" Width="100"/>
+                        <DataGridTextColumn Header="Tổng Thu Nhập" Binding="{Binding TotalIncome}" Width="120"/>
+                        <DataGridTextColumn Header="Ngày Thanh Toán" Binding="{Binding PaymentDate}" Width="120"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- Form -->
+            <Border Grid.Row="2" Margin="0,20,0,0" Background="White" CornerRadius="8" 
+                    BorderBrush="#E2E8F0" BorderThickness="1" Padding="20">
+                <Grid DataContext="{Binding SelectedSalary}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Column 1 -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="ID:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="SalaryIdTextBox" IsReadOnly="True" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Tên Nhân Viên:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="EmployeeNameTextBox" IsReadOnly="True" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Employee ID:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="EmployeeIdTextBox" Margin="0,0,0,15"/>
+                    </StackPanel>
+
+                    <!-- Column 2 -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Lương Cơ Bản:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="BaseSalaryTextBox" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Phụ Cấp:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="AllowanceTextBox" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Thưởng:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="BonusTextBox" Margin="0,0,0,15"/>
+                    </StackPanel>
+
+                    <!-- Column 3 -->
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="Phạt:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="PenaltyTextBox" Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Ngày Thanh Toán:" Style="{StaticResource HeaderText}"/>
+                        <TextBox x:Name="PaymentDateTextBox" Margin="0,0,0,15"/>
+                    </StackPanel>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" 
+                              Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                        <Button Content="Thêm mới" Width="120" Margin="0,0,10,0" 
+                                Click="AddSalaryButton_Click" Background="#10B981" Foreground="White"/>
+                        <Button Content="Chỉnh sửa" Width="120" Margin="0,0,10,0" 
+                                Click="EditSalaryButton_Click" Background="#3B82F6" Foreground="White"/>
+                        <Button Content="Xóa" Width="120" 
+                                Click="DeleteSalaryButton_Click" Background="#EF4444" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
