@@ -117,12 +117,9 @@
                 <TextBox x:Name="SearchTextBox" 
                          Width="300" 
                          Margin="0,0,10,0" 
+                         TextChanged="SearchTextBox_TextChanged"
                         />
-                <Button Content="Search" 
-                        Width="100" 
-                        Style="{StaticResource ActionButtonStyle}"
-                        Background="#3498db"
-                        Foreground="White"/>
+                
             </StackPanel>
 
             <!-- DataGrid -->
