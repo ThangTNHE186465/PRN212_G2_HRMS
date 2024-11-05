@@ -141,15 +141,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            <StatusBarItem>
-                <TextBlock Text="Nhân viên: ADMIN" Margin="10,0"/>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1">
-                <TextBlock Text="Quyền hạn: Quản trị hệ thống" Margin="10,0"/>
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="3">
-                <TextBlock Text="Ngày: 01/25/2024" Margin="10,0"/>
-            </StatusBarItem>
+            
         </StatusBar>
     </Grid>
 </Window>

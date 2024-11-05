@@ -92,12 +92,5 @@
             </DataGrid>
         </Grid>
 
-        <!-- Status Bar -->
-        <StatusBar Grid.Row="2" Background="#F5F5F5">
-            <StatusBarItem Content="Nhân viên: ADMIN"/>
-            <Separator/>
-            <StatusBarItem Content="Quyền hạn: Quản trị hệ thống"/>
-            <StatusBarItem Content="Ngày: 01/25/2024" HorizontalAlignment="Right"/>
-        </StatusBar>
     </Grid>
 </Window>
