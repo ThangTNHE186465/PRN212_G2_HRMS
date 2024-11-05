@@ -1,0 +1,234 @@
+﻿<Window x:Class="WPFApp.EmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfApp="clr-namespace:WPFApp"
+        Title="Employee Management" Height="800" Width="1200" 
+        WindowState="Maximized">
+    
+    <Window.Resources>
+        <!-- Custom Styles -->
+        <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#34495E"/>
+            <Setter Property="Margin" Value="0,5,0,2"/>
+        </Style>
+
+        <Style x:Key="CustomTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CustomComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,5"/>
+        </Style>
+
+        <Style x:Key="CustomDatePickerStyle" TargetType="DatePicker">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Padding" Value="20,0"/>
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2980B9"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CustomDataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="#F8F9FA"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E9ECEF"/>
+            <Setter Property="VerticalGridLinesBrush" Value="#E9ECEF"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/> <!-- Content -->
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <wpfApp:HeaderAdmin Grid.Row="0"/>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Side - Employee List -->
+            <DockPanel Grid.Column="0" Margin="0,0,20,0">
+                <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
+                    <TextBlock Text="Employee List" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <DockPanel Margin="0,0,0,10">
+                        <TextBlock Text="Search by name:" 
+                                 Style="{StaticResource LabelTextBlockStyle}"
+                                 VerticalAlignment="Center"
+                                 Margin="0,0,10,0"/>
+                        <TextBox x:Name="SearchTextBox" 
+                                Style="{StaticResource CustomTextBoxStyle}"
+                                TextChanged="SearchTextBox_TextChanged"/>
+                    </DockPanel>
+                </StackPanel>
+
+                <DataGrid x:Name="EmployeeDataGrid" 
+                         Style="{StaticResource CustomDataGridStyle}"
+                         AutoGenerateColumns="False"
+                         SelectionChanged="EmployeeDataGrid_SelectionChanged"
+                         CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding EmployeeId}" Width="auto"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Department" Binding="{Binding Department.DepartmentName}" Width="*"/>
+                        <DataGridTextColumn Header="Position" Binding="{Binding Position.PositionName}" Width="*"/>
+                        <DataGridTextColumn Header="Phone" Binding="{Binding PhoneNumber}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+
+            <!-- Right Side - Employee Details -->
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Employee Details" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    
+                    <!-- Profile Image -->
+                    <Border Background="#F8F9FA" 
+                            BorderBrush="#DEE2E6" 
+                            BorderThickness="1" 
+                            CornerRadius="4"
+                            Padding="20"
+                            Margin="0,0,0,20">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Border Width="150" 
+                                    Height="150" 
+                                    CornerRadius="75"
+                                    ClipToBounds="True">
+                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/>
+                            </Border>
+                            <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/>
+                            <Button Content="Change Photo" 
+                                    Style="{StaticResource CustomButtonStyle}"
+                                    Margin="0,10,0,0"
+                                    Click="ChooseImageButton_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Employee Form -->
+                    <TextBlock Text="ID:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <TextBox x:Name="EmployeeIdTextBox" Style="{StaticResource CustomTextBoxStyle}" IsReadOnly="True"/>
+                    
+                    <TextBlock Text="Full Name:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <TextBox x:Name="FullNameTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
+                    
+                    <TextBlock Text="Date of Birth:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <DatePicker x:Name="DateOfBirthDatePicker" Style="{StaticResource CustomDatePickerStyle}"/>
+                    
+                    <TextBlock Text="Gender:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <ComboBox x:Name="GenderComboBox" Style="{StaticResource CustomComboBoxStyle}">
+                        <ComboBoxItem Content="Male"/>
+                        <ComboBoxItem Content="Female"/>
+                        <ComboBoxItem Content="Other"/>
+                    </ComboBox>
+                    
+                    <TextBlock Text="Address:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <TextBox x:Name="AddressTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
+                    
+                    <TextBlock Text="Phone Number:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <TextBox x:Name="PhoneNumberTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
+                    
+                    <TextBlock Text="Department:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <ComboBox x:Name="DepartmentComboBox" 
+                             Style="{StaticResource CustomComboBoxStyle}"
+                             DisplayMemberPath="DepartmentName" 
+                             SelectedValuePath="DepartmentID"/>
+                    
+                    <TextBlock Text="Position:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <ComboBox x:Name="PositionComboBox" 
+                             Style="{StaticResource CustomComboBoxStyle}"
+                             DisplayMemberPath="PositionName" 
+                             SelectedValuePath="PositionID"/>
+                    
+                    <TextBlock Text="Role:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <ComboBox x:Name="RoleComboBox" 
+                             Style="{StaticResource CustomComboBoxStyle}"
+                             DisplayMemberPath="RoleName" 
+                             SelectedValuePath="RoleID" 
+                             IsReadOnly="True"/>
+                    
+                    <TextBlock Text="Start Date:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <DatePicker x:Name="CreateDatePicker" Style="{StaticResource CustomDatePickerStyle}"/>
+                    
+                    <TextBlock Text="Salary:" Style="{StaticResource LabelTextBlockStyle}"/>
+                    <TextBox x:Name="SalaryTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
+                    
+                    <!-- Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button Content="Lưu thay đổi" Width="100" Height="30" Margin="5" Click="SaveChangesButton_Click" Background="#4A90E2" Foreground="White"/>
+                        <Button Content="Refresh" Width="100" Height="30" Margin="5" Click="RefreshButton_Click" Background="Brown" Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <!-- ~1~ Employee Image Section @1@ -->
+            <!-- <StackPanel Grid.Column="2" VerticalAlignment="Center" Background="#F5F5F5" Margin="10"> -->
+            <!--     <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/> -->
+            <!--     <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/> -->
+            <!--     <Button Content="Choose Image" Width="120" Height="30" Click="ChooseImageButton_Click" Background="#4A90E2" Foreground="White"/> -->
+            <!-- </StackPanel> -->
+        </Grid>
+    </Grid>
+</Window>
