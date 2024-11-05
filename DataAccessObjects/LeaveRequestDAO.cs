@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessObjects
 {
-    
-     public class LeaveRequestDAO
+
+    public class LeaveRequestDAO
     {
         public List<LeaveRequest> getAllLeaveRequest()
         {
@@ -19,10 +19,11 @@ namespace DataAccessObjects
             {
                 leaveList = _context.LeaveRequests.ToList();
             }
-            catch (Exception ex) { 
-            throw new Exception(ex.Message);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
-                return leaveList;
+            return leaveList;
         }
         public List<LeaveRequest> GetLeaveRequestsByEmployeeID(int employeeId)
         {
@@ -41,12 +42,13 @@ namespace DataAccessObjects
                 throw new Exception($"Error retrieving leave requests for employee {employeeId}: {ex.Message}", ex);
             }
         }
-        public LeaveRequest getLeaveRequest(int id) { 
-        using var _context = new FuhrmContext();
-        var leaveRequestDetail = _context.LeaveRequests
-                .Include(e => e.Employee)
-                .ThenInclude(d => d.Department)
-                .FirstOrDefault(l => l.LeaveRequestId == id);
+        public LeaveRequest getLeaveRequest(int id)
+        {
+            using var _context = new FuhrmContext();
+            var leaveRequestDetail = _context.LeaveRequests
+                    .Include(e => e.Employee)
+                    .ThenInclude(d => d.Department)
+                    .FirstOrDefault(l => l.LeaveRequestId == id);
             return leaveRequestDetail;
         }
         public void ChangeStatus(int leaveRequestId, string newStatus)
@@ -74,8 +76,8 @@ namespace DataAccessObjects
             _context.SaveChanges();
         }
         public Employee GetEmployeeByAccountId(int accountId)
-        { 
-        using var _context = new FuhrmContext();
+        {
+            using var _context = new FuhrmContext();
             return _context.Employees.FirstOrDefault(e => e.AccountId == accountId);
         }
 
