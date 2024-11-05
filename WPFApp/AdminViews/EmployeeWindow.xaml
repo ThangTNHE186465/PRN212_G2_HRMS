@@ -160,7 +160,7 @@
                                     Height="150" 
                                     CornerRadius="75"
                                     ClipToBounds="True">
-                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10" Visibility="Collapsed"/>
+                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/>
                             </Border>
                             <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/>
                             <Button Content="Change Photo" 
