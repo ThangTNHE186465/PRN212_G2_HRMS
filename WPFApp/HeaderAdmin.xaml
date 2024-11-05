@@ -154,7 +154,7 @@
                     <Button Content="Trang Chủ" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Tài khoản" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Nhân viên" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Bộ phận" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Phòng ban" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Vị trí" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Chấm công" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                     <Button Content="Thông báo" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
