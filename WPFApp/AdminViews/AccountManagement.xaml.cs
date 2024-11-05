@@ -71,7 +71,7 @@ namespace WPFApp
 
         private void AccountDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(AccountDataGrid.SelectedItem is Account selectedAccount)
+            if (AccountDataGrid.SelectedItem is Account selectedAccount)
             {
                 Account a = accountRepository.GetAccountById(selectedAccount.AccountId);
                 DisplayAccountDetails(a);
@@ -155,7 +155,8 @@ namespace WPFApp
             }
             else
             {
-                if (accountRepository.GetAccountByUserName(UsernameTextBox.Text) != null)
+                var user = accountRepository.GetAccountByUserName(UsernameTextBox.Text);
+                if (user != null && user.AccountId != int.Parse(AccountIdTextBox.Text))
                 {
                     MessageBox.Show("Username already exists");
                     return;
