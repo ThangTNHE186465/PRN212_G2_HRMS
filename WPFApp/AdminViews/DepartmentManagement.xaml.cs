@@ -49,11 +49,21 @@ namespace WPFApp
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            var departmentName = DepartmentNameTextBox.Text;
+
+            // Check if the department name already exists
+            if (_departmentRepository.DoesDepartmentExist(departmentName))
+            {
+                MessageBox.Show("Tên phòng ban đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var department = new Department
             {
-                DepartmentName = DepartmentNameTextBox.Text,
+                DepartmentName = departmentName,
                 CreateDate = CreateDatePicker.SelectedDate
             };
+
             _departmentRepository.AddDepartment(department);
             LoadDepartments();
         }
@@ -62,12 +72,23 @@ namespace WPFApp
         {
             if (DepartmentDataGrid.SelectedItem is Department selectedDepartment)
             {
-                selectedDepartment.DepartmentName = DepartmentNameTextBox.Text;
+                var newDepartmentName = DepartmentNameTextBox.Text;
+
+                // Check if the new department name already exists (except for the current department)
+                if (_departmentRepository.DoesDepartmentExist(newDepartmentName) && selectedDepartment.DepartmentName != newDepartmentName)
+                {
+                    MessageBox.Show("Tên phòng ban đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                selectedDepartment.DepartmentName = newDepartmentName;
                 selectedDepartment.CreateDate = CreateDatePicker.SelectedDate;
+
                 _departmentRepository.UpdateDepartment(selectedDepartment);
                 LoadDepartments();
             }
         }
+
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {

@@ -14,6 +14,7 @@ namespace Repositories
         List<Department>? SearchDepartment(string Name);
         void RemoveDepartment(Department department);
         void UpdateDepartment(Department department);
+        bool DoesDepartmentExist(string departmentName);
 
     }
 }

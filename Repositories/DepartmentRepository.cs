@@ -26,5 +26,7 @@ namespace Repositories
         public int GetEmployeeCountByDepartment(int departmentId)
             => DepartmentDAO.GetEmployeeCountByDepartment(departmentId);
 
+        public bool DoesDepartmentExist(string departmentName) 
+            => DepartmentDAO.DoesDepartmentExist(departmentName);
     }
 }

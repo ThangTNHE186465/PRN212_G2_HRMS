@@ -62,6 +62,14 @@ namespace DataAccessObjects
             }
         }
 
+        public static bool DoesDepartmentExist(string departmentName)
+        {
+            using (var context = new FuhrmContext())
+            {
+                return context.Departments.Any(d => d.DepartmentName == departmentName);
+            }
+
+        }
 
     }
 }
