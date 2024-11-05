@@ -29,7 +29,8 @@ namespace WPFApp
             {
                 int leaveRequestID = selectedLeave.LeaveRequestId;
                 LeaveRequest leaveRequestDetail = _leaveRepository.getLeaveRequest(leaveRequestID);
-                if (leaveRequestDetail != null) {
+                if (leaveRequestDetail != null)
+                {
                     EmployeeNameText.Text = leaveRequestDetail.Employee.FullName;
                     DepartmentNameText.Text = leaveRequestDetail.Employee.Department.DepartmentName;
                     LeaveTypeText.Text = leaveRequestDetail.LeaveType.ToString();
