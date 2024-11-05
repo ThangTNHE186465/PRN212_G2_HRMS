@@ -32,6 +32,11 @@ namespace Repositories
         {
             _positionDAO.UpdatePosition(position);
         }
+        public bool DoesPositionExist(string PositionName)
+        {
+            return _positionDAO.DoesPositionExist(PositionName);
+            
 
+        }
     }
 }

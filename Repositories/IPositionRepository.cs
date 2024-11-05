@@ -10,5 +10,7 @@ namespace Repositories
         void AddPosition(Position position); // Thêm phương thức AddPosition
         void UpdatePosition(Position position);
 
+        bool DoesPositionExist(string PositionName);
+        
     }
 }

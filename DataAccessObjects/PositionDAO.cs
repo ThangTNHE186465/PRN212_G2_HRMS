@@ -39,6 +39,13 @@ namespace DataAccessObjects
             _context.SaveChanges();
         }
 
+        public bool DoesPositionExist(string PositionName)
+        {
+            
+                return _context.Positions.Any(d => d.PositionName == PositionName);
+            
+
+        }
 
     }
 }

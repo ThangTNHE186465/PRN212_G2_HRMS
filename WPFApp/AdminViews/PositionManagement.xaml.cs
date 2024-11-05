@@ -37,7 +37,16 @@ namespace WPFApp
         {
             if (PositionDataGrid.SelectedItem is Position selectedPosition)
             {
-                selectedPosition.PositionName = PositionNameTextBox.Text;
+                var newPositionName = PositionNameTextBox.Text;
+
+                // Kiểm tra tên chức vụ đã tồn tại chưa (ngoại trừ chức vụ hiện tại)
+                if (_positionRepository.DoesPositionExist(newPositionName) && selectedPosition.PositionName != newPositionName)
+                {
+                    MessageBox.Show("Tên chức vụ đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                selectedPosition.PositionName = newPositionName;
 
                 try
                 {
@@ -60,6 +69,7 @@ namespace WPFApp
                 MessageBox.Show("Vui lòng chọn một chức vụ để lưu thông tin!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
