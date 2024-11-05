@@ -1,21 +1,22 @@
 ﻿using Repositories;
-using System.Collections.Generic;
+using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using BusinessObjects;
-using System;
-using System.Globalization;
 
 namespace WPFApp
 {
     public partial class SalaryView : Window
     {
         private readonly SalaryRepository _salaryRepository;
+        private readonly EmployeeRepository _employeeRepository;
 
         public SalaryView()
         {
             InitializeComponent();
             _salaryRepository = new SalaryRepository();
+            _employeeRepository = new EmployeeRepository();
             LoadSalaries();
         }
 
@@ -70,11 +71,15 @@ namespace WPFApp
                     PaymentDate = DateOnly.ParseExact(PaymentDateTextBox.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture)
                 };
                 _salaryRepository.AddSalary(salary);
+                var employee = _employeeRepository.GetEmployeeById(salary.EmployeeId);
+                employee.Salary = salary.BaseSalary;
+                _employeeRepository.UpdateEmployee(employee);
                 LoadSalaries();
+                MessageBox.Show("Thêm lương thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding salary: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi thêm lương: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -91,11 +96,12 @@ namespace WPFApp
                     selectedSalary.PaymentDate = DateOnly.ParseExact(PaymentDateTextBox.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     _salaryRepository.UpdateSalary(selectedSalary);
                     LoadSalaries();
+                    MessageBox.Show("Chỉnh sửa lương thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error editing salary: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi chỉnh sửa lương: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -107,11 +113,12 @@ namespace WPFApp
                 {
                     _salaryRepository.RemoveSalary(selectedSalary);
                     LoadSalaries();
+                    MessageBox.Show("Xóa lương thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error deleting salary: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi xóa lương: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

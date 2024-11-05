@@ -20,5 +20,8 @@ namespace Repositories
 
         public List<Salary> GetSalaries()
             => SalaryDAO.GetSalaries();
+
+        public Salary GetSalaryByEmployeeId(int selectedEmployeeEmployeeId)
+            => SalaryDAO.GetSalaryByEmployeeId(selectedEmployeeEmployeeId);
     }
 }

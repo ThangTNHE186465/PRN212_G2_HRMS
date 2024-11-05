@@ -4,7 +4,7 @@
         xmlns:wpfApp="clr-namespace:WPFApp"
         Title="Employee Management" Height="800" Width="1200" 
         WindowState="Maximized">
-    
+
     <Window.Resources>
         <!-- Custom Styles -->
         <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
@@ -97,10 +97,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> <!-- Header -->
-            <RowDefinition Height="*"/> <!-- Content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Header -->
+            <RowDefinition Height="*"/>
+            <!-- Content -->
         </Grid.RowDefinitions>
-        
+
         <!-- Header -->
         <wpfApp:HeaderAdmin Grid.Row="0"/>
 
@@ -145,7 +147,7 @@
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="Employee Details" Style="{StaticResource HeaderTextBlockStyle}"/>
-                    
+
                     <!-- Profile Image -->
                     <Border Background="#F8F9FA" 
                             BorderBrush="#DEE2E6" 
@@ -158,7 +160,7 @@
                                     Height="150" 
                                     CornerRadius="75"
                                     ClipToBounds="True">
-                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/>
+                                <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10" Visibility="Collapsed"/>
                             </Border>
                             <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/>
                             <Button Content="Change Photo" 
@@ -171,51 +173,51 @@
                     <!-- Employee Form -->
                     <TextBlock Text="ID:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <TextBox x:Name="EmployeeIdTextBox" Style="{StaticResource CustomTextBoxStyle}" IsReadOnly="True"/>
-                    
+
                     <TextBlock Text="Full Name:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <TextBox x:Name="FullNameTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
-                    
+
                     <TextBlock Text="Date of Birth:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <DatePicker x:Name="DateOfBirthDatePicker" Style="{StaticResource CustomDatePickerStyle}"/>
-                    
+
                     <TextBlock Text="Gender:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <ComboBox x:Name="GenderComboBox" Style="{StaticResource CustomComboBoxStyle}">
                         <ComboBoxItem Content="Male"/>
                         <ComboBoxItem Content="Female"/>
                         <ComboBoxItem Content="Other"/>
                     </ComboBox>
-                    
+
                     <TextBlock Text="Address:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <TextBox x:Name="AddressTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
-                    
+
                     <TextBlock Text="Phone Number:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <TextBox x:Name="PhoneNumberTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
-                    
+
                     <TextBlock Text="Department:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <ComboBox x:Name="DepartmentComboBox" 
                              Style="{StaticResource CustomComboBoxStyle}"
                              DisplayMemberPath="DepartmentName" 
                              SelectedValuePath="DepartmentID"/>
-                    
+
                     <TextBlock Text="Position:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <ComboBox x:Name="PositionComboBox" 
                              Style="{StaticResource CustomComboBoxStyle}"
                              DisplayMemberPath="PositionName" 
                              SelectedValuePath="PositionID"/>
-                    
+
                     <TextBlock Text="Role:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <ComboBox x:Name="RoleComboBox" 
                              Style="{StaticResource CustomComboBoxStyle}"
                              DisplayMemberPath="RoleName" 
                              SelectedValuePath="RoleID" 
                              IsReadOnly="True"/>
-                    
+
                     <TextBlock Text="Start Date:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <DatePicker x:Name="CreateDatePicker" Style="{StaticResource CustomDatePickerStyle}"/>
-                    
+
                     <TextBlock Text="Salary:" Style="{StaticResource LabelTextBlockStyle}"/>
                     <TextBox x:Name="SalaryTextBox" Style="{StaticResource CustomTextBoxStyle}"/>
-                    
+
                     <!-- Buttons -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                         <Button Content="Lưu thay đổi" Width="100" Height="30" Margin="5" Click="SaveChangesButton_Click" Background="#4A90E2" Foreground="White"/>
@@ -223,12 +225,6 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
-            <!-- ~1~ Employee Image Section @1@ -->
-            <!-- <StackPanel Grid.Column="2" VerticalAlignment="Center" Background="#F5F5F5" Margin="10"> -->
-            <!--     <Image x:Name="EmployeeImage" Width="150" Height="150" Source="{Binding ProfilePicture, FallbackValue='placeholder.png'}" Stretch="UniformToFill" Margin="0,10"/> -->
-            <!--     <TextBlock x:Name="ProfilePictureUrlTextBlock" Text="{Binding ProfilePicture}" FontSize="12" Foreground="#333" TextWrapping="Wrap" Margin="0,5"/> -->
-            <!--     <Button Content="Choose Image" Width="120" Height="30" Click="ChooseImageButton_Click" Background="#4A90E2" Foreground="White"/> -->
-            <!-- </StackPanel> -->
         </Grid>
     </Grid>
 </Window>
