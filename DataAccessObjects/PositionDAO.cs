@@ -22,7 +22,7 @@ namespace DataAccessObjects
             return _context.Positions.Find(positionId);
         }
 
-       
+
 
         public void UpdatePosition(Position position)
         {
@@ -39,6 +39,6 @@ namespace DataAccessObjects
             _context.SaveChanges();
         }
 
-     
+
     }
 }
