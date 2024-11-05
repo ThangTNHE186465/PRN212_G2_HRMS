@@ -74,12 +74,12 @@ namespace WPFApp
                         employeeView.Show();
                         currentWindow.Close();
                         break;
-                    case "Bộ phận":
+                    case "Phòng ban":
                         var departmentView = new DepartmentManagement();
                         departmentView.Show();
                         currentWindow.Close();
                         break;
-                    case "Vị trí":
+                    case "Chức vụ":
                         var position = new PositionManagement();
                         position.Show();
                         currentWindow.Close();
