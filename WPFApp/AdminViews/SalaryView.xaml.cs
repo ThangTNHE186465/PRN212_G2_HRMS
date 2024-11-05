@@ -95,6 +95,9 @@ namespace WPFApp
                     selectedSalary.Penalty = string.IsNullOrEmpty(PenaltyTextBox.Text) ? (double?)null : double.Parse(PenaltyTextBox.Text);
                     selectedSalary.PaymentDate = DateOnly.ParseExact(PaymentDateTextBox.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                     _salaryRepository.UpdateSalary(selectedSalary);
+                    var employee = _employeeRepository.GetEmployeeById(selectedSalary.EmployeeId);
+                    employee.Salary = selectedSalary.BaseSalary;
+                    _employeeRepository.UpdateEmployee(employee);
                     LoadSalaries();
                     MessageBox.Show("Chỉnh sửa lương thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
