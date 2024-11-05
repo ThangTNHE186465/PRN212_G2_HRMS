@@ -10,7 +10,7 @@ namespace Repositories
 {
     public class LeaveRequestRepository : ILeaveRequestRepository
     {
-      private LeaveRequestDAO leaveRequestDAO = new LeaveRequestDAO();
+        private LeaveRequestDAO leaveRequestDAO = new LeaveRequestDAO();
 
         public List<LeaveRequest> getAllLeaveRequest()
        => leaveRequestDAO.getAllLeaveRequest();
@@ -18,7 +18,7 @@ namespace Repositories
         public LeaveRequest getLeaveRequest(int id)
         => leaveRequestDAO.getLeaveRequest(id);
         public void ChangeStatus(int leaveRequestId, string newStatus)
-            =>leaveRequestDAO.ChangeStatus(leaveRequestId, newStatus);
+            => leaveRequestDAO.ChangeStatus(leaveRequestId, newStatus);
 
         public void AddLeaveRequest(LeaveRequest leaveRequest)
        => leaveRequestDAO.AddLeaveRequest(leaveRequest);
