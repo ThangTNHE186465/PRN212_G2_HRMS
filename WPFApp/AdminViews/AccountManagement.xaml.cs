@@ -156,7 +156,8 @@ namespace WPFApp
             else
             {
                 var user = accountRepository.GetAccountByUserName(UsernameTextBox.Text);
-                if (user != null && user.AccountId != int.Parse(AccountIdTextBox.Text))
+                int accountId = int.Parse(AccountIdTextBox.Text);
+                if (user != null && user.AccountId != accountId)
                 {
                     MessageBox.Show("Username already exists");
                     return;
@@ -165,15 +166,15 @@ namespace WPFApp
                 {
                     Account account = new Account
                     {
-                        AccountId = int.Parse(AccountIdTextBox.Text),
+                        AccountId = accountId,
                         Username = UsernameTextBox.Text,
                         Password = PasswordTextBox.Text,
                         RoleId = (int)RoleCombobox.SelectedValue
                     };
                     accountRepository.UpdateAccount(account);
+                    MessageBox.Show("Account updated successfully.");
                     LoadAccounts();
                 }
-
             }
         }
 

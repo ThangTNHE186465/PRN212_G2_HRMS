@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using BusinessObjects;
 using Repositories;
-using WPFApp.EmployeeView;
 
 namespace WPFApp
 {
@@ -12,7 +11,7 @@ namespace WPFApp
         public MainWindow(int employeeId)
         {
             InitializeComponent();
-            employeeID = employeeId;
+            employeeID=employeeId;
             LoadLeavesRequestByID();
         }
 
