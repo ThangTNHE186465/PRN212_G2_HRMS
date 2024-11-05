@@ -21,27 +21,38 @@ namespace WPFApp
             {
                 if (StartDate.SelectedDate.HasValue && EndDate.SelectedDate.HasValue)
                 {
-                    if (EndDate.SelectedDate.Value > StartDate.SelectedDate.Value)
+                    var today = DateOnly.FromDateTime(DateTime.Today);
+                    var selectedStartDate = DateOnly.FromDateTime(StartDate.SelectedDate.Value);
+                    var selectedEndDate = DateOnly.FromDateTime(EndDate.SelectedDate.Value);
+
+                    if (selectedStartDate >= today)
                     {
-                        var leaveRequest = new LeaveRequest
+                        if (selectedEndDate > selectedStartDate)
                         {
-                            EmployeeId = _employeeID,
-                            LeaveType = LeaveType.Text,
-                            StartDate = DateOnly.FromDateTime(StartDate.SelectedDate.Value),
-                            EndDate = DateOnly.FromDateTime(EndDate.SelectedDate.Value),
-                            Status = "Pending"
-                        };
+                            var leaveRequest = new LeaveRequest
+                            {
+                                EmployeeId = _employeeID,
+                                LeaveType = LeaveType.Text,
+                                StartDate = selectedStartDate,
+                                EndDate = selectedEndDate,
+                                Status = "Pending"
+                            };
 
-                        leaveRequestRepo.AddLeaveRequest(leaveRequest);
+                            leaveRequestRepo.AddLeaveRequest(leaveRequest);
 
-                        MessageBox.Show("Yêu cầu nghỉ phép đã được gửi thành công!");
-                        MainWindow mainWindow = new MainWindow(_employeeID);
-                        mainWindow.Show();
-                        this.Close();
+                            MessageBox.Show("Yêu cầu nghỉ phép đã được gửi thành công!");
+                            MainWindow mainWindow = new MainWindow(_employeeID);
+                            mainWindow.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                        MessageBox.Show("Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.");
                     }
                 }
                 else
