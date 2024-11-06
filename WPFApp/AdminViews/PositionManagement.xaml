@@ -88,12 +88,12 @@
 
                     <StackPanel Grid.Column="1" 
                               Orientation="Horizontal">
-                        <Button Content="Thêm mới" 
+                        <Button Content="Add" 
                                 Style="{StaticResource ActionButton}"
                                 Background="#10B981"
                                 Margin="0,0,8,0"
                                 Click="AddPositionButton_Click"/>
-                        <Button Content="Làm mới" 
+                        <Button Content="Refresh"
                                 Style="{StaticResource ActionButton}"
                                 Background="#6366F1"
                                 Click="RefreshButton_Click"/>
@@ -169,7 +169,7 @@
                                     Padding="12,8"
                                     Margin="0,0,0,24"/>
 
-                            <Button Content="Lưu thay đổi"
+                            <Button Content="Save changes"
                                     Style="{StaticResource ActionButton}"
                                     Background="#3B82F6"
                                     Width="120"

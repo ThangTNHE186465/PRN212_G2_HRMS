@@ -145,11 +145,11 @@
                     <!-- Buttons -->
                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" 
                               Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-                        <Button Content="Thêm mới" Width="120" Margin="0,0,10,0" 
+                        <Button Content="Add" Width="120" Margin="0,0,10,0" 
                                 Click="AddSalaryButton_Click" Background="#10B981" Foreground="White"/>
-                        <Button Content="Chỉnh sửa" Width="120" Margin="0,0,10,0" 
+                        <Button Content="Edit" Width="120" Margin="0,0,10,0" 
                                 Click="EditSalaryButton_Click" Background="#3B82F6" Foreground="White"/>
-                        <Button Content="Xóa" Width="120" 
+                        <Button Content="Delete" Width="120"
                                 Click="DeleteSalaryButton_Click" Background="#EF4444" Foreground="White"/>
                     </StackPanel>
                 </Grid>
