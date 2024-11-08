@@ -5,76 +5,121 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="70" d:DesignWidth="1200">
+
     <UserControl.Resources>
         <!-- Button Styles -->
         <Style x:Key="HeaderButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="15,8"/>
-            <Setter Property="Margin" Value="5,0"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="15,8" />
+            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Padding="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#34495e"/>
+                    <Setter Property="Background" Value="#3E5169" />
                 </Trigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
-    <Border Background="#2c3e50" Height="70">
+    <Border Background="#2C3E50"
+            Height="70"
+            Effect="{DynamicResource MaterialDesignElevationShadow2}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!-- Logo and Window Name Section -->
-            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="20,0">
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        Margin="20,0"
+                        VerticalAlignment="Center">
                 <!-- You can add company logo here -->
-                <Border Width="32" Height="32" CornerRadius="16" Background="White" VerticalAlignment="Center">
-                    <TextBlock Text="HR" FontWeight="Bold" Foreground="#4A90E2" 
-                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Width="32"
+                        Height="32"
+                        CornerRadius="16"
+                        Background="White"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="HR"
+                               FontWeight="Bold"
+                               Foreground="#4A90E2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
                 </Border>
-                <TextBlock Text="{Binding CurrentWindowName}" FontSize="18" FontWeight="SemiBold" 
-                         Foreground="White" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <TextBlock Text="{Binding CurrentWindowName}"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           Margin="12,0,0,0" />
             </StackPanel>
 
             <!-- Navigation Buttons -->
-            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Home" Style="{StaticResource HeaderButtonStyle}" 
-            Click="NavigateButton_Click"
-            Margin="5,0"/>
-                <Button Content="Take Attendance" Style="{StaticResource HeaderButtonStyle}" 
-            Click="NavigateButton_Click" 
-            Margin="5,0"/>
-                <Button Content="Notification" Style="{StaticResource HeaderButtonStyle}" 
-            Click="NavigateButton_Click" 
-            Margin="5,0"/>
-                <Button Content="Absent Request" Style="{StaticResource HeaderButtonStyle}" 
-            Click="NavigateButton_Click" 
-            Margin="5,0"/>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0,0,0,5">
+                <Button Content="Home"
+                        Style="{DynamicResource HeaderButtonStyle}"
+                        Click="NavigateButton_Click" />
+                <Button Content="Take Attendance"
+                        Style="{DynamicResource HeaderButtonStyle}"
+                        Click="NavigateButton_Click" />
+                <Button Content="Notification"
+                        Style="{DynamicResource HeaderButtonStyle}"
+                        Click="NavigateButton_Click" />
+                <Button Content="Absent Request"
+                        Style="{DynamicResource HeaderButtonStyle}"
+                        Click="NavigateButton_Click" />
             </StackPanel>
 
             <!-- User Profile and Logout Section -->
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="20,0">
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        Margin="20,0"
+                        VerticalAlignment="Center">
                 <!-- User Profile Button -->
-                <Border Width="36" Height="36" CornerRadius="18" Background="White"
-        Margin="0,0,15,0" VerticalAlignment="Center" ClipToBounds="True">
-                    <Image x:Name="ProfileAvatar" Stretch="UniformToFill" Width="36" Height="36">
+                <Border Width="36"
+                        Height="36"
+                        CornerRadius="18"
+                        Background="White"
+                        Margin="0,0,15,0"
+                        VerticalAlignment="Center"
+                        ClipToBounds="True">
+                    <Image x:Name="ProfileAvatar"
+                           Stretch="UniformToFill"
+                           Width="36"
+                           Height="36">
                         <Image.Clip>
-                            <EllipseGeometry Center="18,18" RadiusX="18" RadiusY="18" />
+                            <EllipseGeometry Center="18,18"
+                                            RadiusX="18"
+                                            RadiusY="18" />
                         </Image.Clip>
                     </Image>
                 </Border>
-
-
-
                 <!-- Logout Button -->
                 <Button Content="Logout"
                         Style="{DynamicResource HeaderButtonStyle}"
-                        Click="LogoutButton_Click" VerticalAlignment="Center"/>
+                        Click="LogoutButton_Click"
+                        VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
     </Border>

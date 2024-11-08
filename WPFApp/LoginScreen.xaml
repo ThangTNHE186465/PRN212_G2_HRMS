@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
-        Title="LoginScreen" 
-        WindowState="Maximized"
-        Background="#F5F7FA">
-    
+        Title="Edupulse® Login" 
+        Height="626" 
+        Width="400"
+        WindowStartupLocation="CenterScreen"
+        KeyDown="Window_KeyDown"
+        Background="#F0F2F5">
+
     <Window.Resources>
         <Style x:Key="ModernTextBox" TargetType="{x:Type TextBox}">
             <Setter Property="Padding" Value="15,12"/>
@@ -49,101 +52,104 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Border Width="500" 
-                Height="600"
-                Background="White"
-                CornerRadius="20"
-                Effect="{DynamicResource MaterialDesignElevationShadow2}">
-            
-            <Grid Margin="40">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+    <Border Background="White" 
+            CornerRadius="20" 
+            Margin="20"
+            Effect="{DynamicResource MaterialDesignElevationShadow2}">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                
+            <!-- Logo -->
+            <Image Source="Images/logo.jpg" 
+                   Grid.Row="0"
+                   Margin="0,0,0,20" 
+                   MaxWidth="200" 
+                   MaxHeight="100"
+                   HorizontalAlignment="Center"/>
 
-                <!-- Title -->
-                <StackPanel Grid.Row="1" 
-                           Margin="0,0,0,40">
-                    <TextBlock Text="Login" 
-                             FontWeight="Bold" 
-                             FontSize="28" 
-                             HorizontalAlignment="Center"
-                             Margin="0,50,0,0"/>
-                    <TextBlock Text="Please sign in to continue" 
-                             Foreground="#666666" 
-                             FontSize="14" 
-                             HorizontalAlignment="Center" 
-                             Margin="0,8,0,0"/>
-                </StackPanel>
+            <!-- Title -->
+            <StackPanel Grid.Row="1" 
+                        Margin="0,0,0,30">
+                <TextBlock Text="Edupulse" 
+                           FontWeight="Bold" 
+                           FontSize="24" 
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Please sign in to continue" 
+                           Foreground="#666666" 
+                           FontSize="14" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,8,0,0"/>
+            </StackPanel>
 
-                <!-- Login Form -->
-                <StackPanel Grid.Row="2">
-                    <TextBlock Text="Username" 
-                             Margin="0,0,0,8" 
-                             FontWeight="SemiBold"/>
-                    <TextBox x:Name="txtUsername" 
-                            Style="{StaticResource ModernTextBox}"
-                            FontSize="14"
-                            Height="45"
-                            Margin="0,0,0,20"/>
+            <!-- Login Form -->
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="Username" 
+                           Margin="0,0,0,8" 
+                           FontWeight="SemiBold"/>
+                <TextBox x:Name="txtUsername" 
+                         Style="{StaticResource ModernTextBox}"
+                         FontSize="14"
+                         Height="45"
+                         Margin="0,0,0,20"/>
 
-                    <TextBlock Text="Password" 
-                             Margin="0,0,0,8" 
-                             FontWeight="SemiBold"/>
-                    <PasswordBox x:Name="txtPassword" 
-                               Style="{StaticResource ModernPasswordBox}"
-                               FontSize="14"
-                               Height="45"
-                               Margin="0,0,0,20"/>
-
-                    <TextBlock x:Name="txtError" 
-                             TextWrapping="Wrap" 
-                             Foreground="#FF4444" 
-                             FontSize="12"
+                <TextBlock Text="Password" 
+                           Margin="0,0,0,8" 
+                           FontWeight="SemiBold"/>
+                <PasswordBox x:Name="txtPassword" 
+                             Style="{StaticResource ModernPasswordBox}"
+                             FontSize="14"
+                             Height="45"
                              Margin="0,0,0,20"/>
 
-                    <!-- Login Button -->
-                    <Button Content="Sign In" 
-                            Height="45" 
-                            Click="btnLogin_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="#2196F3"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="FontSize" Value="14"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    CornerRadius="8"
-                                                    Padding="16,8">
-                                                <ContentPresenter HorizontalAlignment="Center" 
-                                                                VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#1976D2"/>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter Property="Background" Value="#1565C0"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-    </Grid>
+                <TextBlock x:Name="txtError" 
+                           TextWrapping="Wrap" 
+                           Foreground="#FF4444" 
+                           FontSize="12"
+                           Margin="0,0,0,20"/>
+
+                <!-- Login Button -->
+                <Button Content="Sign In" 
+                        Height="45" 
+                        Click="btnLogin_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#2c3e50"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}"
+                                                CornerRadius="8"
+                                                Padding="16,8">
+                                            <ContentPresenter HorizontalAlignment="Center" 
+                                                              VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#0f161c"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#000000"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+
+
+        </Grid>
+    </Border>
 </Window>

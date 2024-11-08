@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using BusinessObjects;
 using Repositories;
+using System.Windows.Input;
 
 namespace WPFApp
 {
@@ -52,10 +53,18 @@ namespace WPFApp
                 MessageBox.Show("Please enter username and password");
             }
         }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Trigger the login button click
+                btnLogin_Click(this, new RoutedEventArgs());
+            }
+        }
     }
 
     public static class SessionManager
     {
-        public static Account CurrentAccount { get; set; }
+        public static Account? CurrentAccount { get; set; }
     }
 }
