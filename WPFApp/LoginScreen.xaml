@@ -64,12 +64,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Logo -->
-                <Ellipse Grid.Row="0" 
-                         Width="80" 
-                         Height="80" 
-                         Fill="#2196F3"
-                         Margin="0,0,0,20"/>
+                
 
                 <!-- Title -->
                 <StackPanel Grid.Row="1" 
@@ -77,7 +72,8 @@
                     <TextBlock Text="Login" 
                              FontWeight="Bold" 
                              FontSize="28" 
-                             HorizontalAlignment="Center"/>
+                             HorizontalAlignment="Center"
+                             Margin="0,50,0,0"/>
                     <TextBlock Text="Please sign in to continue" 
                              Foreground="#666666" 
                              FontSize="14" 
