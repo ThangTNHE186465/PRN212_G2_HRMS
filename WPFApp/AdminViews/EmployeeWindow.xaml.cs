@@ -232,6 +232,7 @@ namespace WPFApp
                     var salary = _salaryRepository.GetSalaryByEmployeeId(selectedEmployee.EmployeeId);
                     salary.BaseSalary = selectedEmployee.Salary;
                     _salaryRepository.UpdateSalary(salary);
+                    selectedEmployee.ProfilePicture = ProfilePictureUrlTextBlock.Text;
                     _employeeRepository.UpdateEmployee(selectedEmployee);
                     LoadEmployees();
 
