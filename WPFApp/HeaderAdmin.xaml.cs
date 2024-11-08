@@ -59,47 +59,47 @@ namespace WPFApp
 
                 switch (button.Content.ToString())
                 {
-                    case "Trang Chủ":
+                    case "Home":
                         var homeView = new AdminDashboard();
                         homeView.Show();
                         currentWindow.Close();
                         break;
-                    case "Tài khoản":
+                    case "Account":
                         var account = new AccountManagement();
                         account.Show();
                         currentWindow.Close();
                         break;
-                    case "Nhân viên":
+                    case "Employee":
                         var employeeView = new EmployeeWindow();
                         employeeView.Show();
                         currentWindow.Close();
                         break;
-                    case "Phòng ban":
+                    case "Department":
                         var departmentView = new DepartmentManagement();
                         departmentView.Show();
                         currentWindow.Close();
                         break;
-                    case "Chức vụ":
+                    case "Position":
                         var position = new PositionManagement();
                         position.Show();
                         currentWindow.Close();
                         break;
-                    case "Chấm công":
+                    case "Attendance":
                         var attendanceView = new AttendanceView();
                         attendanceView.Show();
                         currentWindow.Close();
                         break;
-                    case "Bảng lương":
+                    case "Salary":
                         var salaryView = new SalaryView();
                         salaryView.Show();
                         currentWindow.Close();
                         break;
-                    case "Nghỉ phép":
+                    case "Absent Request":
                         var leaveView = new LeaveRequestView();
                         leaveView.Show();
                         currentWindow.Close();
                         break;
-                    case "Thông báo":
+                    case "Notification":
                         var notificationWindow = new NotificationManagement();
                         notificationWindow.Show();
                         currentWindow.Close();

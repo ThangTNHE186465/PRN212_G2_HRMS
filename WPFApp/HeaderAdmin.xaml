@@ -151,20 +151,20 @@
                           Orientation="Horizontal" 
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Center">
-                    <Button Content="Trang Chủ" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Tài khoản" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Nhân viên" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Phòng ban" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Chức vụ" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Chấm công" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Thông báo" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Bảng lương" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
-                    <Button Content="Nghỉ phép" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Home" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Account" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Employee" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Department" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Position" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Attendance" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Notification" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Salary" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
+                    <Button Content="Absent Request" Style="{DynamicResource HeaderButtonStyle}" Click="NavigateButton_Click"/>
                 </StackPanel>
 
                 <!-- Logout -->
                 <Button Grid.Column="2" 
-                        Content="Đăng xuất" 
+                        Content="Logout" 
                         Style="{DynamicResource HeaderButtonStyle}"
                         Click="LogoutButton_Click"
                         Margin="0,0,20,0"/>

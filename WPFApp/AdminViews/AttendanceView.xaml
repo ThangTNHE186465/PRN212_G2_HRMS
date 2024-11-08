@@ -143,10 +143,10 @@
                          SelectionChanged="AttendanceDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Attendance ID" Binding="{Binding AttendanceId}" Width="*"/>
-                        <DataGridTextColumn Header="Tên Nhân Viên" Binding="{Binding Employee.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Employee Name" Binding="{Binding Employee.FullName}" Width="*"/>
                         <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" Width="*"/>
-                        <DataGridTextColumn Header="Ngày Chấm Công" Binding="{Binding Date}" Width="*"/>
-                        <DataGridTextColumn Header="Trạng Thái" Binding="{Binding Status}" Width="*"/>
+                        <DataGridTextColumn Header="Attendannce Date" Binding="{Binding Date}" Width="*"/>
+                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -177,7 +177,7 @@
                                 Style="{StaticResource ModernTextBox}" 
                                 IsReadOnly="True"/>
 
-                        <TextBlock Text="Tên Nhân Viên" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="Employee Name" Style="{StaticResource FieldLabel}"/>
                         <TextBox x:Name="EmployeeNameTextBox" 
                                 Style="{StaticResource ModernTextBox}" 
                                 IsReadOnly="True"/>
@@ -188,11 +188,11 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="Ngày Chấm Công" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="Attendannce Date" Style="{StaticResource FieldLabel}"/>
                         <TextBox x:Name="AttendanceDateTextBox" 
                                 Style="{StaticResource ModernTextBox}"/>
 
-                        <TextBlock Text="Trạng Thái" Style="{StaticResource FieldLabel}"/>
+                        <TextBlock Text="Status" Style="{StaticResource FieldLabel}"/>
                         <TextBox x:Name="StatusTextBox" 
                                 Style="{StaticResource ModernTextBox}"/>
 

@@ -30,7 +30,7 @@
 
             <!-- Add Leave Request Button -->
             <Button Grid.Row="0" 
-                    Content="Add Leave Request" 
+                    Content="Add Absent Request" 
                     HorizontalAlignment="Left"
                     Height="35" 
                     Width="175" 
@@ -84,7 +84,7 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Employee ID" Binding="{Binding Employee.EmployeeId}" Width="*"/>
-                    <DataGridTextColumn Header="Leave Type" Binding="{Binding LeaveType}" Width="*"/>
+                    <DataGridTextColumn Header="Reason" Binding="{Binding LeaveType}" Width="*"/>
                     <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="*"/>
                     <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>

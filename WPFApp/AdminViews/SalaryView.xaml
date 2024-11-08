@@ -80,14 +80,14 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding SalaryId}" Width="80"/>
-                        <DataGridTextColumn Header="Tên Nhân Viên" Binding="{Binding Employee.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Employee Name" Binding="{Binding Employee.FullName}" Width="*"/>
                         <DataGridTextColumn Header="Employee ID" Binding="{Binding EmployeeId}" Width="100"/>
-                        <DataGridTextColumn Header="Lương Cơ Bản" Binding="{Binding BaseSalary}" Width="120"/>
-                        <DataGridTextColumn Header="Phụ Cấp" Binding="{Binding Allowance}" Width="100"/>
-                        <DataGridTextColumn Header="Thưởng" Binding="{Binding Bonus}" Width="100"/>
-                        <DataGridTextColumn Header="Phạt" Binding="{Binding Penalty}" Width="100"/>
-                        <DataGridTextColumn Header="Tổng Thu Nhập" Binding="{Binding TotalIncome}" Width="120"/>
-                        <DataGridTextColumn Header="Ngày Thanh Toán" Binding="{Binding PaymentDate}" Width="120"/>
+                        <DataGridTextColumn Header="Base Salary" Binding="{Binding BaseSalary}" Width="120"/>
+                        <DataGridTextColumn Header="Allowance" Binding="{Binding Allowance}" Width="100"/>
+                        <DataGridTextColumn Header="Bonus" Binding="{Binding Bonus}" Width="100"/>
+                        <DataGridTextColumn Header="Penalty" Binding="{Binding Penalty}" Width="100"/>
+                        <DataGridTextColumn Header="Total Income" Binding="{Binding TotalIncome}" Width="120"/>
+                        <DataGridTextColumn Header="Payment Date" Binding="{Binding PaymentDate}" Width="120"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

@@ -92,22 +92,22 @@ namespace WPFApp
 
                 switch (button.Content.ToString())
                 {
-                    case "Trang chủ":
+                    case "Home":
                         var homeView = new HomeEmployee();
                         homeView.Show();
                         currentWindow.Close();
                         break;
-                    case "Điểm danh":
+                    case "Take Attendance":
                         var takeAttendanceView = new TakeAttendance(SessionManager.CurrentAccount.AccountId);
                         takeAttendanceView.Show();
                         currentWindow.Close();
                         break;
-                    case "Thông báo":
+                    case "Notification":
                         var notificationWindow = new NotificationWindow(SessionManager.CurrentAccount.AccountId, new NotificationRepository(), new EmployeeRepository(new EmployeeDAO(new FuhrmContext())));
                         notificationWindow.Show();
                         currentWindow.Close();
                         break;
-                    case "Xin nghỉ phép":
+                    case "Absent Request":
                         var employee = _employeeRepository.GetEmployeeByAccountId(SessionManager.CurrentAccount.AccountId);
                         if (employee != null)
                         {

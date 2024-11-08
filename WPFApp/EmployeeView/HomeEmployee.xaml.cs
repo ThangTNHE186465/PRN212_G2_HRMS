@@ -36,7 +36,7 @@ namespace WPFApp
             if (currentAccount != null)
             {
                 var em = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
-                WelcomeTextBlock.Text = $"Xin chào {em.FullName}";
+                WelcomeTextBlock.Text = $"Hello, {em.FullName}";
                 NameTextBox.Text = em.FullName;
                 BirthTextBox.Text = em.DateOfBirth.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
                 GenderTextBox.Text = em.Gender;

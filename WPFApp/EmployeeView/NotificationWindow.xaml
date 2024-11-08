@@ -93,7 +93,7 @@
                           Background="White">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Tiêu đề" Width="300">
+                            <GridViewColumn Header="Title" Width="300">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Title}" 
@@ -102,7 +102,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Nội dung" Width="500">
+                            <GridViewColumn Header="Content" Width="990">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Content}" 
@@ -112,7 +112,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Ngày" Width="150">
+                            <GridViewColumn Header="Date" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding CreatedDate, StringFormat='{}{0:dd/MM/yyyy}'}"
@@ -141,7 +141,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            
+
         </StatusBar>
     </Grid>
 </Window>

@@ -59,9 +59,9 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="Leave Request ID" Binding="{Binding LeaveRequestId}" />
+                        <DataGridTextColumn Width="*" Header="Absent Request ID" Binding="{Binding LeaveRequestId}" />
                         <DataGridTextColumn Width="*" Header="Employee ID" Binding="{Binding EmployeeId}" />
-                        <DataGridTextColumn Width="*" Header="Leave Type" Binding="{Binding LeaveType}" />
+                        <DataGridTextColumn Width="*" Header="Reason" Binding="{Binding LeaveType}" />
                         <DataGridTextColumn Width="*" Header="Start Date" Binding="{Binding StartDate}" />
                         <DataGridTextColumn Width="*" Header="End Date" Binding="{Binding EndDate}" />
                         <DataGridTextColumn Width="*" Header="Status" Binding="{Binding Status}" />
@@ -105,7 +105,7 @@
                              Padding="10,8"
                              Margin="0,0,0,10" />
 
-                    <TextBlock Text="Absent type:"
+                    <TextBlock Text="Reason:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="LeaveTypeText"

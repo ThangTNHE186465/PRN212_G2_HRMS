@@ -43,18 +43,18 @@
 
             <!-- Navigation Buttons -->
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Trang chủ" Style="{StaticResource HeaderButtonStyle}" 
-                        Click="NavigateButton_Click"
-                        Margin="5,0"/>
-                <Button Content="Điểm danh" Style="{StaticResource HeaderButtonStyle}" 
-                        Click="NavigateButton_Click" 
-                        Margin="5,0"/>
-                <Button Content="Thông báo" Style="{StaticResource HeaderButtonStyle}" 
-                        Click="NavigateButton_Click" 
-                        Margin="5,0"/>
-                <Button Content="Xin nghỉ phép" Style="{StaticResource HeaderButtonStyle}" 
-                        Click="NavigateButton_Click" 
-                        Margin="5,0"/>
+                <Button Content="Home" Style="{StaticResource HeaderButtonStyle}" 
+            Click="NavigateButton_Click"
+            Margin="5,0"/>
+                <Button Content="Take Attendance" Style="{StaticResource HeaderButtonStyle}" 
+            Click="NavigateButton_Click" 
+            Margin="5,0"/>
+                <Button Content="Notification" Style="{StaticResource HeaderButtonStyle}" 
+            Click="NavigateButton_Click" 
+            Margin="5,0"/>
+                <Button Content="Absent Request" Style="{StaticResource HeaderButtonStyle}" 
+            Click="NavigateButton_Click" 
+            Margin="5,0"/>
             </StackPanel>
 
             <!-- User Profile and Logout Section -->

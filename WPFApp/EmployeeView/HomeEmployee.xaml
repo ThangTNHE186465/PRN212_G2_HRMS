@@ -73,7 +73,7 @@
                                 <!-- Left Column -->
                                 <StackPanel Grid.Column="0" Margin="0,0,15,0">
                                     <!-- Name -->
-                                    <TextBlock Text="Tên"
+                                    <TextBlock Text="Name"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -85,7 +85,7 @@
                                     </Border>
 
                                     <!-- Birth -->
-                                    <TextBlock Text="Ngày sinh"
+                                    <TextBlock Text="Date of Birth"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -97,7 +97,7 @@
                                     </Border>
 
                                     <!-- Gender -->
-                                    <TextBlock Text="Giới tính"
+                                    <TextBlock Text="Gender"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -109,7 +109,7 @@
                                     </Border>
 
                                     <!-- Address -->
-                                    <TextBlock Text="Địa chỉ"
+                                    <TextBlock Text="Address"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -121,7 +121,7 @@
                                     </Border>
 
                                     <!-- Phone -->
-                                    <TextBlock Text="Số điện thoại"
+                                    <TextBlock Text="Phone Number"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -136,7 +136,7 @@
                                 <!-- Right Column -->
                                 <StackPanel Grid.Column="1" Margin="15,0,0,0">
                                     <!-- Department -->
-                                    <TextBlock Text="Phòng ban"
+                                    <TextBlock Text="Department"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -148,7 +148,7 @@
                                     </Border>
 
                                     <!-- Position -->
-                                    <TextBlock Text="Vị trí"
+                                    <TextBlock Text="Position"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -160,7 +160,7 @@
                                     </Border>
 
                                     <!-- Salary -->
-                                    <TextBlock Text="Lương"
+                                    <TextBlock Text="Salary"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>
@@ -172,7 +172,7 @@
                                     </Border>
 
                                     <!-- Start Date -->
-                                    <TextBlock Text="Ngày đi làm"
+                                    <TextBlock Text="Start Date"
                                                FontSize="14"
                                                FontWeight="SemiBold"
                                                Foreground="#34495e"/>

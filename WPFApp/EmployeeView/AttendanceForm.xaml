@@ -119,14 +119,14 @@
             </Border.Effect>
 
             <StackPanel>
-                <TextBlock Text="Absent request" 
+                <TextBlock Text="Absent Request" 
                          FontSize="24" 
                          FontWeight="Bold" 
                          Foreground="#2c3e50"
                          Margin="0,0,0,30"
                          TextAlignment="Center"/>
 
-                <Label Content="Absent type" 
+                <Label Content="Reason" 
                        Style="{StaticResource ModernLabel}"/>
                 <TextBox x:Name="LeaveType" 
                          Style="{StaticResource ModernTextBox}"/>
