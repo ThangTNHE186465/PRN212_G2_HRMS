@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
-        Title="Edupulse® Login" 
-        Height="626" 
-        Width="400"
+        Title="Edupulse® Login" Height="Auto" Width="Auto" WindowState="Maximized" 
         WindowStartupLocation="CenterScreen"
         KeyDown="Window_KeyDown"
         Background="#F0F2F5">

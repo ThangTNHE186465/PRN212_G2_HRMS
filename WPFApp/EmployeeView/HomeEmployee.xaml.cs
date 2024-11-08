@@ -35,39 +35,64 @@ namespace WPFApp
             var currentAccount = SessionManager.CurrentAccount;
             if (currentAccount != null)
             {
-                var em = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
-                WelcomeTextBlock.Text = $"Hello, {em.FullName}";
-                NameTextBox.Text = em.FullName;
-                BirthTextBox.Text = em.DateOfBirth.ToString(CultureInfo.CurrentCulture).Split(" ")[0];
-                GenderTextBox.Text = em.Gender;
-                AddressTextBox.Text = em.Address;
-                PhoneTextBox.Text = em.PhoneNumber;
-                StartTextBox.Text = em.StartDate.ToString(CultureInfo.InvariantCulture).Split(" ")[0];
-                DepartmentTextBox.Text = em.Department.DepartmentName;
-                PositionTextBox.Text = em.Position.PositionName;
-                SalaryTextBox.Text = em.Salary.ToString(CultureInfo.InvariantCulture);
-
-                // Hiển thị ảnh đại diện
-                if (!string.IsNullOrEmpty(em.ProfilePicture))
+                var employee = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
+                if (employee != null)
                 {
-                    try
+                    // Hiển thị thông tin nhân viên lên giao diện
+                    WelcomeTextBlock.Text = $"Hello, {employee.FullName}";
+                    NameTextBox.Text = employee.FullName;
+                    BirthTextBox.Text = employee.DateOfBirth.ToString("d", CultureInfo.CurrentCulture);
+                    GenderTextBox.Text = employee.Gender;
+                    AddressTextBox.Text = employee.Address;
+                    PhoneTextBox.Text = employee.PhoneNumber;
+                    StartTextBox.Text = employee.StartDate.ToString("d", CultureInfo.CurrentCulture);
+                    DepartmentTextBox.Text = employee.Department?.DepartmentName ?? "N/A";
+                    PositionTextBox.Text = employee.Position?.PositionName ?? "N/A";
+                    SalaryTextBox.Text = employee.Salary.ToString( CultureInfo.CurrentCulture);
+
+                    // Hiển thị ảnh đại diện
+                    if (!string.IsNullOrEmpty(employee.ProfilePicture))
                     {
-                        ProfileImage.Source = new BitmapImage(new Uri(em.ProfilePicture, UriKind.RelativeOrAbsolute));
+                        try
+                        {
+                            ProfileImage.Source = new BitmapImage(new Uri(employee.ProfilePicture, UriKind.RelativeOrAbsolute));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error loading profile picture: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu có lỗi
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"Lỗi khi tải ảnh đại diện: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu có lỗi
+                        ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu không có ảnh
                     }
                 }
                 else
                 {
-                    ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu không có ảnh
+                    MessageBox.Show("Employee data could not be found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                WelcomeTextBlock.Text = "Xin chào nhân viên";
+                WelcomeTextBlock.Text = "Welcome, employee";
+            }
+        }
+
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Giả sử bạn đã có đối tượng `Employee` hiện tại
+            var currentAccount = SessionManager.CurrentAccount;
+            if (currentAccount != null)
+            {
+                var em = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
+                EditProfileWindow editProfileWindow = new EditProfileWindow(em);
+                editProfileWindow.Show();
+                this.Close(); // Tùy chọn đóng cửa sổ HomeEmployee nếu cần
+            }
+            else
+            {
+                MessageBox.Show("Không thể chỉnh sửa. Không tìm thấy thông tin tài khoản hiện tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
