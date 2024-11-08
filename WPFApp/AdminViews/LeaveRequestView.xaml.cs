@@ -55,6 +55,7 @@ namespace WPFApp
                 {
                     dao.ChangeStatus(leaveRequestId, newStatus);
                     MessageBox.Show($"Status changed to {newStatus}");
+                    LoadLeaveRequest();
                 }
 
                 catch (Exception ex)

@@ -32,7 +32,7 @@ namespace WPFApp
                 EmployeeIdTextBox.Text = employee.EmployeeId.ToString();
                 EmployeeNameTextBox.Text = employee.FullName;
                 AttendanceDateTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                StatusTextBox.Text = "Có mặt";
+                StatusTextBox.Text = "Present";
             }
             else
             {
