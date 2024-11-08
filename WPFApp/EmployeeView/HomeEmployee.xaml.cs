@@ -46,11 +46,30 @@ namespace WPFApp
                 DepartmentTextBox.Text = em.Department.DepartmentName;
                 PositionTextBox.Text = em.Position.PositionName;
                 SalaryTextBox.Text = em.Salary.ToString(CultureInfo.InvariantCulture);
+
+                // Hiển thị ảnh đại diện
+                if (!string.IsNullOrEmpty(em.ProfilePicture))
+                {
+                    try
+                    {
+                        ProfileImage.Source = new BitmapImage(new Uri(em.ProfilePicture, UriKind.RelativeOrAbsolute));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi tải ảnh đại diện: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu có lỗi
+                    }
+                }
+                else
+                {
+                    ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu không có ảnh
+                }
             }
             else
             {
                 WelcomeTextBlock.Text = "Xin chào nhân viên";
             }
         }
+
     }
 }

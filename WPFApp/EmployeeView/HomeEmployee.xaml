@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
-        Title="Employee Profile" Height="687" Width="896" WindowState="Maximized">
+        Title="Employee Profile"
+        Height="687"
+        Width="896"
+        WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,8 +19,8 @@
         <local:HeaderEmployee Grid.Row="0"/>
 
         <!-- Main Content -->
-        <Border Grid.Row="1" 
-                Background="#f5f6fa" 
+        <Border Grid.Row="1"
+                Background="#f5f6fa"
                 Padding="40,30">
             <Grid MaxWidth="900">
                 <StackPanel>
@@ -28,137 +31,159 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock x:Name="WelcomeTextBlock" 
-                                 Text="Nhân viên:" 
-                                 FontSize="28" 
-                                 FontWeight="Bold" 
-                                 Foreground="#2c3e50"/>
+                        <TextBlock x:Name="WelcomeTextBlock"
+                                   Text="Nhân viên:"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="#2c3e50"/>
                     </Grid>
 
                     <!-- Profile Card -->
-                    <Border Background="White" 
-                            CornerRadius="10" 
-                            Padding="30" 
+                    <Border Background="White"
+                            CornerRadius="10"
+                            Padding="30"
                             Effect="{DynamicResource ShadowEffect}">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <!-- Phần trên cùng để hiển thị avatar -->
+                                <RowDefinition Height="*"/>
+                                <!-- Phần dưới hiển thị thông tin -->
+                            </Grid.RowDefinitions>
 
-                            <!-- Left Column -->
-                            <StackPanel Grid.Column="0" Margin="0,0,15,0">
-                                <!-- Name -->
-                                <TextBlock Text="Tên" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="NameTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
-
-                                <!-- Birth -->
-                                <TextBlock Text="Ngày sinh" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="BirthTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
-
-                                <!-- Gender -->
-                                <TextBlock Text="Giới tính" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="GenderTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
-
-                                <!-- Address -->
-                                <TextBlock Text="Địa chỉ" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="AddressTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
-
-                                <!-- Phone -->
-                                <TextBlock Text="Số điện thoại" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="PhoneTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
+                            <!-- Top Section - Avatar -->
+                            <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
+                                <Image x:Name="ProfileImage"
+                                       Width="150"
+                                       Height="150"
+                                       Stretch="UniformToFill"
+                                       ClipToBounds="True"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       Margin="0,0,0,15"/>
                             </StackPanel>
 
-                            <!-- Right Column -->
-                            <StackPanel Grid.Column="1" Margin="15,0,0,0">
-                                <!-- Department -->
-                                <TextBlock Text="Phòng ban" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="DepartmentTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
+                            <!-- Bottom Section - Employee Details -->
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <!-- Position -->
-                                <TextBlock Text="Vị trí" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="PositionTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
+                                <!-- Left Column -->
+                                <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                                    <!-- Name -->
+                                    <TextBlock Text="Tên"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="NameTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
 
-                                <!-- Salary -->
-                                <TextBlock Text="Lương" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="SalaryTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
+                                    <!-- Birth -->
+                                    <TextBlock Text="Ngày sinh"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="BirthTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
 
-                                <!-- Start Date -->
-                                <TextBlock Text="Ngày đi làm" 
-                                         FontSize="14" 
-                                         FontWeight="SemiBold" 
-                                         Foreground="#34495e"/>
-                                <Border Background="#f8f9fa" 
-                                        CornerRadius="5" 
-                                        Margin="0,5,0,15">
-                                    <TextBox x:Name="StartTextBox" 
-                                           Style="{DynamicResource ProfileTextBoxStyle}"/>
-                                </Border>
-                            </StackPanel>
+                                    <!-- Gender -->
+                                    <TextBlock Text="Giới tính"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="GenderTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+
+                                    <!-- Address -->
+                                    <TextBlock Text="Địa chỉ"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="AddressTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+
+                                    <!-- Phone -->
+                                    <TextBlock Text="Số điện thoại"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="PhoneTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+                                </StackPanel>
+
+                                <!-- Right Column -->
+                                <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                                    <!-- Department -->
+                                    <TextBlock Text="Phòng ban"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="DepartmentTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+
+                                    <!-- Position -->
+                                    <TextBlock Text="Vị trí"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="PositionTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+
+                                    <!-- Salary -->
+                                    <TextBlock Text="Lương"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="SalaryTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+
+                                    <!-- Start Date -->
+                                    <TextBlock Text="Ngày đi làm"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="#34495e"/>
+                                    <Border Background="#f8f9fa"
+                                            CornerRadius="5"
+                                            Margin="0,5,0,15">
+                                        <TextBox x:Name="StartTextBox"
+                                                 Style="{DynamicResource ProfileTextBoxStyle}"/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -176,10 +201,10 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
-        <DropShadowEffect x:Key="ShadowEffect" 
-                         BlurRadius="10" 
-                         ShadowDepth="1" 
-                         Direction="270" 
-                         Color="#1a000000"/>
+        <DropShadowEffect x:Key="ShadowEffect"
+                          BlurRadius="10"
+                          ShadowDepth="1"
+                          Direction="270"
+                          Color="#1a000000"/>
     </Window.Resources>
 </Window>
