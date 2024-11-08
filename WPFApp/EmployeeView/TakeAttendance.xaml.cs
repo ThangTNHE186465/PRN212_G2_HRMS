@@ -49,7 +49,7 @@ namespace WPFApp
                 {
                     EmployeeId = int.Parse(EmployeeIdTextBox.Text),
                     Date = DateOnly.FromDateTime(DateTime.Now),
-                    Status = "Có mặt"
+                    Status = "Present"
                 };
                 _attendanceRepository.AddAttendance(attendance);
                 MessageBox.Show("Chấm công thành công.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -62,5 +62,21 @@ namespace WPFApp
                 MessageBox.Show($"Lỗi khi chấm công: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void CheckoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _attendanceRepository.CheckoutAttendance(int.Parse(EmployeeIdTextBox.Text));
+                MessageBox.Show("Checkout thành công.", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                HomeEmployee homeEmployee = new HomeEmployee();
+                homeEmployee.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi checkout: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 }

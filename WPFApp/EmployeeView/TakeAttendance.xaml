@@ -16,83 +16,91 @@
         <local:HeaderEmployee Grid.Row="0"/>
 
         <!-- Main Content -->
-        <Border Grid.Row="1" 
-                Background="#f5f6fa" 
+        <Border Grid.Row="1"
+                Background="#f5f6fa"
                 Padding="40,30">
             <Grid MaxWidth="800">
                 <StackPanel>
-                    <TextBlock Text="Take Attendance" 
-                             FontSize="28" 
-                             FontWeight="Bold" 
-                             Margin="0,0,0,30" 
-                             Foreground="#2c3e50"/>
+                    <TextBlock Text="Take Attendance"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Margin="0,0,0,30"
+                               Foreground="#2c3e50"/>
 
-                    <Border Background="White" 
-                            CornerRadius="10" 
-                            Padding="30" 
+                    <Border Background="White"
+                            CornerRadius="10"
+                            Padding="30"
                             Effect="{DynamicResource ShadowEffect}">
                         <StackPanel>
                             <!-- Employee ID -->
-                            <TextBlock Text="Employee ID" 
-                                     FontSize="14" 
-                                     FontWeight="SemiBold" 
-                                     Foreground="#34495e"/>
-                            <Border Background="#f8f9fa" 
-                                    CornerRadius="5" 
+                            <TextBlock Text="Employee ID"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="#34495e"/>
+                            <Border Background="#f8f9fa"
+                                    CornerRadius="5"
                                     Margin="0,5,0,15">
-                                <TextBox x:Name="EmployeeIdTextBox" 
-                                       Padding="10" 
-                                       BorderThickness="0" 
-                                       IsReadOnly="True"/>
+                                <TextBox x:Name="EmployeeIdTextBox"
+                                         Padding="10"
+                                         BorderThickness="0"
+                                         IsReadOnly="True"/>
                             </Border>
 
                             <!-- Full Name -->
-                            <TextBlock Text="Full Name" 
-                                     FontSize="14" 
-                                     FontWeight="SemiBold" 
-                                     Foreground="#34495e"/>
-                            <Border Background="#f8f9fa" 
-                                    CornerRadius="5" 
+                            <TextBlock Text="Full Name"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="#34495e"/>
+                            <Border Background="#f8f9fa"
+                                    CornerRadius="5"
                                     Margin="0,5,0,15">
-                                <TextBox x:Name="EmployeeNameTextBox" 
-                                       Padding="10" 
-                                       BorderThickness="0" 
-                                       IsReadOnly="True"/>
+                                <TextBox x:Name="EmployeeNameTextBox"
+                                         Padding="10"
+                                         BorderThickness="0"
+                                         IsReadOnly="True"/>
                             </Border>
 
                             <!-- Attendance Date -->
-                            <TextBlock Text="Attendance Date" 
-                                     FontSize="14" 
-                                     FontWeight="SemiBold" 
-                                     Foreground="#34495e"/>
-                            <Border Background="#f8f9fa" 
-                                    CornerRadius="5" 
+                            <TextBlock Text="Attendance Date"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="#34495e"/>
+                            <Border Background="#f8f9fa"
+                                    CornerRadius="5"
                                     Margin="0,5,0,15">
-                                <TextBox x:Name="AttendanceDateTextBox" 
-                                       Padding="10" 
-                                       BorderThickness="0" 
-                                       IsReadOnly="True"/>
+                                <TextBox x:Name="AttendanceDateTextBox"
+                                         Padding="10"
+                                         BorderThickness="0"
+                                         IsReadOnly="True"/>
                             </Border>
 
                             <!-- Status -->
-                            <TextBlock Text="Status" 
-                                     FontSize="14" 
-                                     FontWeight="SemiBold" 
-                                     Foreground="#34495e"/>
-                            <Border Background="#f8f9fa" 
-                                    CornerRadius="5" 
+                            <TextBlock Text="Status"
+                                       FontSize="14"
+                                       FontWeight="SemiBold"
+                                       Foreground="#34495e"/>
+                            <Border Background="#f8f9fa"
+                                    CornerRadius="5"
                                     Margin="0,5,0,25">
-                                <TextBox x:Name="StatusTextBox" 
-                                       Padding="10" 
-                                       BorderThickness="0" 
-                                       IsReadOnly="True"/>
+                                <TextBox x:Name="StatusTextBox"
+                                         Padding="10"
+                                         BorderThickness="0"
+                                         IsReadOnly="True"/>
                             </Border>
 
                             <!-- Take Attendance Button -->
-                            <Button Content="Take Attendance" 
-                                    Click="SaveAttendanceButton_Click" 
-                                    Style="{DynamicResource PrimaryButtonStyle}" 
-                                    Width="200" 
+                            <Button Content="Take Attendance"
+                                    Click="SaveAttendanceButton_Click"
+                                    Style="{DynamicResource PrimaryButtonStyle}"
+                                    Width="200"
+                                    Height="45"
+                                    Margin="0,0,0,15"/>
+
+                            <!-- Checkout Button -->
+                            <Button Content="Checkout"
+                                    Click="CheckoutButton_Click"
+                                    Style="{DynamicResource CheckoutButtonStyle}"
+                                    Width="200"
                                     Height="45"/>
                         </StackPanel>
                     </Border>
@@ -114,8 +122,8 @@
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -127,10 +135,36 @@
             </Style.Triggers>
         </Style>
 
-        <DropShadowEffect x:Key="ShadowEffect" 
-                         BlurRadius="10" 
-                         ShadowDepth="1" 
-                         Direction="270" 
-                         Color="#1a000000"/>
+        <!-- Checkout Button Style -->
+        <Style x:Key="CheckoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#B22222"/>
+                    <!-- Darker red on hover -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DropShadowEffect x:Key="ShadowEffect"
+                          BlurRadius="10"
+                          ShadowDepth="1"
+                          Direction="270"
+                          Color="#1a000000"/>
     </Window.Resources>
 </Window>

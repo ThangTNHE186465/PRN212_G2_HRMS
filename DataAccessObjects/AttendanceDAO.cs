@@ -52,5 +52,34 @@ namespace DataAccessObjects
                 context.SaveChanges();
             }
         }
+
+        public static void UpdateAttendanceStatus(int employeeId, string status)
+        {
+            using (var context = new FuhrmContext())
+            {
+                var attendance = context.Attendances
+                                        .FirstOrDefault(a => a.EmployeeId == employeeId && a.Date == DateOnly.FromDateTime(DateTime.Now));
+                if (attendance != null)
+                {
+                    attendance.Status = status;
+                    context.SaveChanges();
+                }
+            }
+        }
+        public static void CheckoutAttendance(int employeeId)
+        {
+            using (var context = new FuhrmContext())
+            {
+                var attendance = context.Attendances
+                                        .FirstOrDefault(a => a.EmployeeId == employeeId && a.Date == DateOnly.FromDateTime(DateTime.Now) && a.Status == "Present");
+                if (attendance != null)
+                {
+                    attendance.Status = "Present"; 
+                    context.SaveChanges();
+                }
+            }
+        }
+
+
     }
 }
