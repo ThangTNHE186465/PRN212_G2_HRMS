@@ -191,11 +191,16 @@ namespace WPFApp
                         return;
                     }
 
+                    if (Regex.IsMatch(selectedEmployee.FullName, @"\d"))
+                    {
+                        MessageBox.Show("Tên không được chứa chữ số", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
                     // Validate Phone Number
                     if (!Regex.IsMatch(selectedEmployee.PhoneNumber, @"^\d{10}$"))
                     {
-                        MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.", "Lỗi",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
@@ -210,47 +215,47 @@ namespace WPFApp
                     // Validate Date of Birth
                     if (selectedEmployee.DateOfBirth >= DateTime.Today)
                     {
-                        MessageBox.Show("Lỗi ngày sinh lớn hơn ngày hiện tại", "Lỗi", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        MessageBox.Show("Ngày sinh không hợp lệ. Vui lòng chọn ngày sinh nhỏ hơn ngày hiện tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
                     if (DateTime.Today.Year - selectedEmployee.DateOfBirth.Year < 18)
                     {
-                        MessageBox.Show("Nhân viên phải trên 18 tuổi", "Lỗi", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        MessageBox.Show("Nhân viên phải trên 18 tuổi", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
                     // Validate Start Date
                     if (selectedEmployee.StartDate > DateTime.Today)
                     {
-                        MessageBox.Show("Ngày tham gia không được lớn hơn ngày hiện tại", "Lỗi", MessageBoxButton.OK,
-                            MessageBoxImage.Error);
+                        MessageBox.Show("Ngày tham gia không được lớn hơn ngày hiện tại", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+
+                    // Cập nhật thông tin lương và nhân viên
                     var salary = _salaryRepository.GetSalaryByEmployeeId(selectedEmployee.EmployeeId);
                     salary.BaseSalary = selectedEmployee.Salary;
                     _salaryRepository.UpdateSalary(salary);
+
                     selectedEmployee.ProfilePicture = ProfilePictureUrlTextBlock.Text;
                     _employeeRepository.UpdateEmployee(selectedEmployee);
+
+                    // Tải lại dữ liệu
                     LoadEmployees();
 
-                    MessageBox.Show("Thông tin nhân viên đã được lưu thành công!", "Thông báo", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    MessageBox.Show("Thông tin nhân viên đã được lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Có lỗi xảy ra khi lưu thông tin: {ex.Message}", "Lỗi", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    MessageBox.Show($"Có lỗi xảy ra khi lưu thông tin: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một nhân viên để lưu thông tin!", "Cảnh báo", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
+                MessageBox.Show("Vui lòng chọn một nhân viên để lưu thông tin!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
