@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using BusinessObjects;
+using LiveCharts.Wpf;
+using LiveCharts;
 
 namespace WPFApp
 {
@@ -35,7 +37,7 @@ namespace WPFApp
             _employeeRepository = new EmployeeRepository(employeeDAO);
             
             _departmentStats = new ObservableCollection<DepartmentStats>();
-            EmployeesByDepartmentItemsControl.ItemsSource = _departmentStats;
+            //EmployeesByDepartmentItemsControl.ItemsSource = _departmentStats;
             
             _refreshTimer = new DispatcherTimer
             {
@@ -73,6 +75,8 @@ namespace WPFApp
         private void LoadEmployeesByDepartment()
         {
             var context = new FuhrmContext();
+            var totalEmployees = context.Employees.Count();
+
             var employeesByDepartment = context.Employees
                 .GroupBy(e => e.Department.DepartmentName)
                 .Select(group => new
@@ -81,14 +85,24 @@ namespace WPFApp
                     Count = group.Count(),
                 }).ToList();
 
-            EmployeesByDepartmentItemsControl.ItemsSource = employeesByDepartment
-                .Select(d => new
+            // Clear previous series if any
+            EmployeesByDepartmentPieChart.Series.Clear();
+
+            // Create series for each department and add to the pie chart
+            foreach (var departmentData in employeesByDepartment)
+            {
+                double percentage = departmentData.Count / (double)totalEmployees * 100;
+
+                var pieSeries = new PieSeries
                 {
-                    DepartmentName = d.Department,
-                    EmployeeCount = d.Count,
-                    Percentage = $"{(d.Count / (double)context.Employees.Count() * 100):F2}%",
-                    ProgressValue = d.Count / (double)context.Employees.Count()
-                }).ToList();
+                    Title = departmentData.Department,
+                    Values = new ChartValues<double> { percentage },
+                    DataLabels = true,
+                    LabelPoint = chartPoint => $"{departmentData.Count} ({chartPoint.Y:F2})%"
+                };
+
+                EmployeesByDepartmentPieChart.Series.Add(pieSeries);
+            }
         }
 
         private void LoadLeaveRequests()

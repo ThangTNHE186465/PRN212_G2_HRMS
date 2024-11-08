@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:local="clr-namespace:WPFApp"
         xmlns:converter="clr-namespace:WPFApp.Converter"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="Admin Dashboard"
         Height="Auto" Width="Auto"
         WindowStartupLocation="CenterScreen"
@@ -56,61 +57,46 @@
 
                     <!-- Statistics overview -->
                     <WrapPanel>
-                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
+                        <Border Style="{StaticResource InfoCardStyle}" Width="700" Height="400">
                             <StackPanel>
                                 <TextBlock Text="Total Employee" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalEmployeesTextBlock" 
                                          FontSize="24" 
                                          FontWeight="Bold" 
                                          Foreground="#4A90E2"/>
+                                <lvc:PieChart x:Name="EmployeesByDepartmentPieChart"
+                                              LegendLocation="Bottom"
+                                              InnerRadius="0"
+                                              Height="280"/>
                             </StackPanel>
                         </Border>
 
-                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
-                            <StackPanel>
-                                <TextBlock Text="Total Salary" Style="{StaticResource CardTitleStyle}"/>
-                                <TextBlock x:Name="TotalSalaryExpenseTextBlock" 
-                                         FontSize="24" 
-                                         FontWeight="Bold" 
-                                         Foreground="#2ECC71"/>
-                            </StackPanel>
-                        </Border>
+                        <!-- Column StackPanel for Total Salary and Absent Request -->
+                        <StackPanel Width="360">
+                            <!-- Total Salary Box (Shorter) -->
+                            <Border Style="{StaticResource InfoCardStyle}" Height="190">
+                                <StackPanel>
+                                    <TextBlock Text="Total Salary" Style="{StaticResource CardTitleStyle}"/>
+                                    <TextBlock x:Name="TotalSalaryExpenseTextBlock" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#2ECC71"/>
+                                </StackPanel>
+                            </Border>
 
-                        <Border Style="{StaticResource InfoCardStyle}" Width="300">
-                            <StackPanel>
-                                <TextBlock Text="Absent Request" Style="{StaticResource CardTitleStyle}"/>
-                                <TextBlock x:Name="PendingLeaveRequestsTextBlock" 
-                                         FontSize="24" 
-                                         FontWeight="Bold" 
-                                         Foreground="#E74C3C"/>
-                            </StackPanel>
-                        </Border>
+                            <!-- Absent Request Box (Shorter) -->
+                            <Border Style="{StaticResource InfoCardStyle}" Height="190">
+                                <StackPanel>
+                                    <TextBlock Text="Absent Request" Style="{StaticResource CardTitleStyle}"/>
+                                    <TextBlock x:Name="PendingLeaveRequestsTextBlock" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#E74C3C"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </WrapPanel>
 
-                    <!-- Department and Attendance Statistics -->
-                    <Grid Margin="0,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!-- Department stats -->
-                        <Border Grid.Column="0" Style="{StaticResource InfoCardStyle}" Margin="10,10,5,10">
-                            <ItemsControl x:Name="EmployeesByDepartmentItemsControl">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="{Binding DepartmentName}" Width="150" FontWeight="Bold" />
-                                            <TextBlock Text="{Binding EmployeeCount}" Width="100" TextAlignment="Center" />
-                                            <TextBlock Text="{Binding Percentage}" Width="80" TextAlignment="Center" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Border>
-
-                        
-                    </Grid>
 
                     <!-- Notifications -->
                     <Border Style="{StaticResource InfoCardStyle}">
