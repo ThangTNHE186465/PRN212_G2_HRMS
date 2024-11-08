@@ -60,11 +60,17 @@
             <!-- User Profile and Logout Section -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="20,0">
                 <!-- User Profile Button -->
-                <Border Width="36" Height="36" CornerRadius="18" Background="White" 
-                        Margin="0,0,15,0" VerticalAlignment="Center">
-                    <TextBlock Text="U" FontWeight="Bold" Foreground="#4A90E2" 
-                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Border Width="36" Height="36" CornerRadius="18" Background="White"
+        Margin="0,0,15,0" VerticalAlignment="Center" ClipToBounds="True">
+                    <Image x:Name="ProfileAvatar" Stretch="UniformToFill" Width="36" Height="36">
+                        <Image.Clip>
+                            <EllipseGeometry Center="18,18" RadiusX="18" RadiusY="18" />
+                        </Image.Clip>
+                    </Image>
                 </Border>
+
+
+
                 <!-- Logout Button -->
                 <Button Content="Logout"
                         Style="{DynamicResource HeaderButtonStyle}"

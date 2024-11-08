@@ -1,10 +1,12 @@
 ﻿using BusinessObjects;
 using DataAccessObjects;
 using Repositories;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace WPFApp
 {
@@ -12,7 +14,7 @@ namespace WPFApp
     {
         private string _currentWindowName;
         private readonly EmployeeRepository _employeeRepository;
-        private readonly LeaveRequestRepository leaveRequestRepository;
+
         public string CurrentWindowName
         {
             get => _currentWindowName;
@@ -29,6 +31,38 @@ namespace WPFApp
             DataContext = this;
             _employeeRepository = new EmployeeRepository(new EmployeeDAO(new FuhrmContext())); // Initialize the repository
             Loaded += SideMenuEmployee_Loaded;
+
+            // Load the employee avatar when the control is initialized
+            LoadEmployeeAvatar();
+        }
+
+        private void LoadEmployeeAvatar()
+        {
+            if (SessionManager.CurrentAccount == null)
+            {
+                MessageBox.Show("Không có thông tin tài khoản hiện tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var currentEmployee = _employeeRepository.GetEmployeeByAccountId(SessionManager.CurrentAccount.AccountId);
+            if (currentEmployee != null && !string.IsNullOrEmpty(currentEmployee.ProfilePicture))
+            {
+                try
+                {
+                    ProfileAvatar.Source = new BitmapImage(new Uri(currentEmployee.ProfilePicture, UriKind.RelativeOrAbsolute));
+                }
+                catch (Exception ex)
+                {
+                    // Ghi nhật ký lỗi thay vì hiển thị hộp thoại nếu cần
+                    Console.WriteLine($"Lỗi khi tải ảnh đại diện: {ex.Message}");
+                    ProfileAvatar.Source = new BitmapImage(new Uri("/Resources/default_avatar.png", UriKind.Relative));
+                }
+            }
+            else
+            {
+                // Hiển thị ảnh mặc định nếu không có ảnh đại diện
+                ProfileAvatar.Source = new BitmapImage(new Uri("/Resources/default_avatar.png", UriKind.Relative));
+            }
         }
 
 
@@ -49,7 +83,6 @@ namespace WPFApp
                 CurrentWindowName = "Unknown Window"; // Fallback value if the window is not found
             }
         }
-
 
         private void NavigateButton_Click(object sender, RoutedEventArgs e)
         {
