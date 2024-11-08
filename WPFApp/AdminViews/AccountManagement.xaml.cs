@@ -2,6 +2,7 @@
 using Repositories;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,12 +24,14 @@ namespace WPFApp
     {
         AccountRepository accountRepository;
         EmployeeRepository employeeRepository;
+        SalaryRepository salaryRepository;
 
         public AccountManagement()
         {
             InitializeComponent();
             accountRepository = new AccountRepository();
             employeeRepository = new EmployeeRepository();
+            salaryRepository = new SalaryRepository();
             LoadAccounts();
             LoadRoles();
         }
@@ -130,16 +133,24 @@ namespace WPFApp
                             DateOfBirth = new DateTime(2000, 1, 1), // Set default or required properties
                             Gender = "Not Specified", // Set default or required properties
                             Address = "Default Address", // Set default or required properties
-                            PhoneNumber = "000-000-0000", // Set default or required properties
+                            PhoneNumber = "0000000000", // Set default or required properties
                             DepartmentId = 1, // Set default or required properties
                             PositionId = 1, // Set default or required properties
                             Salary = 0, // Set default or required properties
                             StartDate = DateTime.Now, // Set default or required properties
                             AccountId = account.AccountId // Associate with the created account
                         };
-
-
                         employeeRepository.AddEmployee(employee);
+
+                        var salary = new Salary
+                        {
+                            EmployeeId = employee.EmployeeId,
+                            BaseSalary = 0,
+                            Allowance = 0,
+                            Bonus = 0,
+                            Penalty = 0
+                        };
+                        salaryRepository.AddSalary(salary);
                     }
                     LoadAccounts();
                 }
