@@ -19,6 +19,11 @@ namespace DataAccessObjects
         {
             using (var context = new FuhrmContext())
             {
+                bool salaryExists = context.Salaries.Any(s => s.EmployeeId == salary.EmployeeId);
+                if (salaryExists)
+                {
+                    throw new InvalidOperationException("Salary for this employee already exists.");
+                }
                 context.Salaries.Add(salary);
                 context.SaveChanges();
             }

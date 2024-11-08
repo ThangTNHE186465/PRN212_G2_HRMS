@@ -102,6 +102,10 @@ namespace WPFApp
                     MessageBox.Show("Chỉnh sửa lương thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi chỉnh sửa lương: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
