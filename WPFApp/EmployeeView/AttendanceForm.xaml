@@ -119,29 +119,29 @@
             </Border.Effect>
 
             <StackPanel>
-                <TextBlock Text="Tạo đơn xin nghỉ phép" 
+                <TextBlock Text="Absent request" 
                          FontSize="24" 
                          FontWeight="Bold" 
                          Foreground="#2c3e50"
                          Margin="0,0,0,30"
                          TextAlignment="Center"/>
 
-                <Label Content="Loại nghỉ phép" 
+                <Label Content="Absent type" 
                        Style="{StaticResource ModernLabel}"/>
                 <TextBox x:Name="LeaveType" 
                          Style="{StaticResource ModernTextBox}"/>
 
-                <Label Content="Ngày bắt đầu" 
+                <Label Content="Start date" 
                        Style="{StaticResource ModernLabel}"/>
                 <DatePicker x:Name="StartDate" 
                           Style="{StaticResource ModernDatePicker}"/>
 
-                <Label Content="Ngày kết thúc" 
+                <Label Content="End date" 
                        Style="{StaticResource ModernLabel}"/>
                 <DatePicker x:Name="EndDate" 
                           Style="{StaticResource ModernDatePicker}"/>
 
-                <Button Content="Gửi đơn" 
+                <Button Content="Send application" 
                         Style="{StaticResource ModernButton}"
                         Width="200"
                         FontSize="14"

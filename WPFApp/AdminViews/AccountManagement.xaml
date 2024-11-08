@@ -28,7 +28,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         
-                        <TextBlock Text="Quản lý tài khoản" 
+                        <TextBlock Text="Account management" 
                                  FontSize="28" 
                                  FontWeight="Bold" 
                                  Foreground="#2c3e50"/>

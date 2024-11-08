@@ -48,7 +48,7 @@
         <Grid Grid.Row="1" Background="#F5F6FA">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="30">
-                    <TextBlock Text="Bảng Điều Khiển" 
+                    <TextBlock Text="Dashboard" 
                              FontSize="28" 
                              FontWeight="Bold" 
                              Margin="10,0,0,30" 
@@ -58,7 +58,7 @@
                     <WrapPanel>
                         <Border Style="{StaticResource InfoCardStyle}" Width="300">
                             <StackPanel>
-                                <TextBlock Text="Tổng Nhân Viên" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock Text="Total Employee" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalEmployeesTextBlock" 
                                          FontSize="24" 
                                          FontWeight="Bold" 
@@ -68,7 +68,7 @@
 
                         <Border Style="{StaticResource InfoCardStyle}" Width="300">
                             <StackPanel>
-                                <TextBlock Text="Tổng Chi Phí Lương" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock Text="Total Salary" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalSalaryExpenseTextBlock" 
                                          FontSize="24" 
                                          FontWeight="Bold" 
@@ -78,7 +78,7 @@
 
                         <Border Style="{StaticResource InfoCardStyle}" Width="300">
                             <StackPanel>
-                                <TextBlock Text="Yêu Cầu Nghỉ Phép" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock Text="Absent Request" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="PendingLeaveRequestsTextBlock" 
                                          FontSize="24" 
                                          FontWeight="Bold" 
@@ -115,7 +115,7 @@
                     <!-- Notifications -->
                     <Border Style="{StaticResource InfoCardStyle}">
                         <StackPanel>
-                            <TextBlock Text="Thông Báo Mới Nhất" Style="{StaticResource CardTitleStyle}"/>
+                            <TextBlock Text="Newest Notification" Style="{StaticResource CardTitleStyle}"/>
                             <ItemsControl x:Name="NotificationsItemsControl">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>

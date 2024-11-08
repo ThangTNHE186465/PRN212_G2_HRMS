@@ -81,7 +81,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Danh sách chức vụ" 
+                    <TextBlock Text="Position List " 
                              FontSize="24" 
                              FontWeight="SemiBold" 
                              Foreground="#1E293B"/>
@@ -125,7 +125,7 @@
                                 <DataGridTextColumn Header="ID" 
                                                   Binding="{Binding PositionId}" 
                                                   Width="Auto"/>
-                                <DataGridTextColumn Header="Tên chức vụ" 
+                                <DataGridTextColumn Header="Position name" 
                                                   Binding="{Binding PositionName}" 
                                                   Width="*"/>
                             </DataGrid.Columns>
@@ -141,7 +141,7 @@
                             BorderBrush="#E2E8F0"
                             Padding="24">
                         <StackPanel>
-                            <TextBlock Text="Thông tin chức vụ"
+                            <TextBlock Text="Position Information"
                                      FontSize="18"
                                      FontWeight="SemiBold"
                                      Margin="0,0,0,16"/>
@@ -158,7 +158,7 @@
                                     Padding="12,8"
                                     Margin="0,0,0,16"/>
 
-                            <TextBlock Text="Tên chức vụ"
+                            <TextBlock Text="Position name"
                                      Margin="0,0,0,8"
                                      Foreground="#64748B"/>
                             <TextBox x:Name="PositionNameTextBox"

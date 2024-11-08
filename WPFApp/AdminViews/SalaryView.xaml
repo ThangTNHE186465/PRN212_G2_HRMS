@@ -56,7 +56,7 @@
                     <ColumnDefinition Width="250"/>
                 </Grid.ColumnDefinitions>
                 
-                <TextBlock Text="Danh sách lương" FontSize="20" FontWeight="Bold" Foreground="#2D3748"/>
+                <TextBlock Text="Salary List" FontSize="20" FontWeight="Bold" Foreground="#2D3748"/>
             </Grid>
 
             <!-- DataGrid -->
@@ -114,7 +114,7 @@
                         <TextBlock Text="ID:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="SalaryIdTextBox" IsReadOnly="True" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Tên Nhân Viên:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Employee name:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="EmployeeNameTextBox" IsReadOnly="True" Margin="0,0,0,15"/>
 
                         <TextBlock Text="Employee ID:" Style="{StaticResource HeaderText}"/>
@@ -123,22 +123,22 @@
 
                     <!-- Column 2 -->
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="Lương Cơ Bản:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Base salary:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="BaseSalaryTextBox" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Phụ Cấp:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Allowance:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="AllowanceTextBox" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Thưởng:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Bonus:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="BonusTextBox" Margin="0,0,0,15"/>
                     </StackPanel>
 
                     <!-- Column 3 -->
                     <StackPanel Grid.Column="4">
-                        <TextBlock Text="Phạt:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Penalty:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="PenaltyTextBox" Margin="0,0,0,15"/>
 
-                        <TextBlock Text="Ngày Thanh Toán:" Style="{StaticResource HeaderText}"/>
+                        <TextBlock Text="Payment Date:" Style="{StaticResource HeaderText}"/>
                         <TextBox x:Name="PaymentDateTextBox" Margin="0,0,0,15"/>
                     </StackPanel>
 

@@ -116,7 +116,7 @@
             <!-- Left Side - Employee List -->
             <DockPanel Grid.Column="0" Margin="0,0,20,0">
                 <StackPanel DockPanel.Dock="Top" Margin="0,0,0,20">
-                    <TextBlock Text="Danh sách nhân viên" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text="Employee list" Style="{StaticResource HeaderTextBlockStyle}"/>
                     <DockPanel Margin="0,0,0,10">
                         <TextBlock Text="Search by name:" 
                                  Style="{StaticResource LabelTextBlockStyle}"

@@ -25,7 +25,7 @@
 
             <!-- Title -->
             <TextBlock Grid.Row="0"
-                       Text="Danh sách đơn"
+                       Text="Absent request list"
                        FontWeight="Bold"
                        FontSize="24"
                        Foreground="#333333"
@@ -78,12 +78,12 @@
 
                 <!-- Left Column - Details -->
                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                    <TextBlock Text="Thông tin chi tiết"
+                    <TextBlock Text="Detail information"
                                FontWeight="SemiBold"
                                FontSize="18"
                                Margin="0,0,0,15" />
 
-                    <TextBlock Text="Tên nhân viên:"
+                    <TextBlock Text="Employee name:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="EmployeeNameText"
@@ -94,7 +94,7 @@
                              Padding="10,8"
                              Margin="0,0,0,10" />
 
-                    <TextBlock Text="Phòng ban:"
+                    <TextBlock Text="Department:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="DepartmentNameText"
@@ -105,7 +105,7 @@
                              Padding="10,8"
                              Margin="0,0,0,10" />
 
-                    <TextBlock Text="Loại nghỉ phép:"
+                    <TextBlock Text="Absent type:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="LeaveTypeText"
@@ -119,12 +119,12 @@
 
                 <!-- Right Column - Dates and Status -->
                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                    <TextBlock Text="Trạng thái đơn"
+                    <TextBlock Text=" Request Status"
                                FontWeight="SemiBold"
                                FontSize="18"
                                Margin="0,0,0,15" />
 
-                    <TextBlock Text="Ngày bắt đầu:"
+                    <TextBlock Text="Start date:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="StartDateText"
@@ -135,7 +135,7 @@
                              Padding="10,8"
                              Margin="0,0,0,10" />
 
-                    <TextBlock Text="Ngày kết thúc:"
+                    <TextBlock Text="End date:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="EndDateText"
@@ -146,7 +146,7 @@
                              Padding="10,8"
                              Margin="0,0,0,10" />
 
-                    <TextBlock Text="Trạng thái:"
+                    <TextBlock Text="Status:"
                                FontWeight="SemiBold"
                                Margin="0,0,0,5" />
                     <TextBox x:Name="StatusText"

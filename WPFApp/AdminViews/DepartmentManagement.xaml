@@ -104,7 +104,7 @@
             </Grid.RowDefinitions>
 
             <!-- Page Title -->
-            <TextBlock Text="Danh sách phòng ban" 
+            <TextBlock Text="Department List" 
                        FontSize="24" 
                        FontWeight="Bold" 
                        Foreground="#2c3e50"
@@ -131,9 +131,9 @@
                       CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding DepartmentId}" Width="80"/>
-                    <DataGridTextColumn Header="Tên Phòng Ban" Binding="{Binding DepartmentName}" Width="*"/>
-                    <DataGridTextColumn Header="Ngày tạo" Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy'}" Width="150"/>
-                    <DataGridTextColumn Header="Số nhân viên" Binding="{Binding EmployeeCount}" Width="120"/>
+                    <DataGridTextColumn Header="Department name " Binding="{Binding DepartmentName}" Width="*"/>
+                    <DataGridTextColumn Header="Create date " Binding="{Binding CreateDate, StringFormat='dd/MM/yyyy'}" Width="150"/>
+                    <DataGridTextColumn Header="Employee number" Binding="{Binding EmployeeCount}" Width="120"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -158,17 +158,17 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,10,0">
-                    <TextBlock Text="Tên Phòng Ban:" Margin="0,0,0,5"/>
+                    <TextBlock Text="Department name:" Margin="0,0,0,5"/>
                     <TextBox x:Name="DepartmentNameTextBox"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,10,0">
-                    <TextBlock Text="Ngày tạo:" Margin="0,0,0,5"/>
+                    <TextBlock Text="Create date:" Margin="0,0,0,5"/>
                     <DatePicker x:Name="CreateDatePicker" Height="30"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="3">
-                    <TextBlock Text="Số lượng nhân viên:" Margin="0,0,0,5"/>
+                    <TextBlock Text="Employee number:" Margin="0,0,0,5"/>
                     <TextBox x:Name="NumberOfEmployeeTextBox" IsReadOnly="True"/>
                 </StackPanel>
 
