@@ -73,6 +73,7 @@
 
                         <!-- Column StackPanel for Total Salary and Absent Request -->
                         <StackPanel Width="360">
+
                             <!-- Total Salary Box (Shorter) -->
                             <Border Style="{StaticResource InfoCardStyle}" Height="190">
                                 <StackPanel>
