@@ -57,7 +57,7 @@
 
                     <!-- Statistics overview -->
                     <WrapPanel>
-                        <Border Style="{StaticResource InfoCardStyle}" Width="700" Height="400">
+                        <Border Style="{StaticResource InfoCardStyle}" Width="650" Height="400">
                             <StackPanel>
                                 <TextBlock Text="Total Employee" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalEmployeesTextBlock" 
@@ -72,7 +72,7 @@
                         </Border>
 
                         <!-- Column StackPanel for Total Salary and Absent Request -->
-                        <StackPanel Width="360">
+                        <StackPanel Width="300">
 
                             <!-- Total Salary Box (Shorter) -->
                             <Border Style="{StaticResource InfoCardStyle}" Height="190">
