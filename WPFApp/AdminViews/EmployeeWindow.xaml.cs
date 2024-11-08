@@ -179,7 +179,6 @@ namespace WPFApp
                 selectedEmployee.PhoneNumber = PhoneNumberTextBox.Text;
                 selectedEmployee.DepartmentId = (int)DepartmentComboBox.SelectedValue;
                 selectedEmployee.PositionId = (int)PositionComboBox.SelectedValue;
-                selectedEmployee.Salary = Double.Parse(SalaryTextBox.Text);
                 selectedEmployee.StartDate = CreateDatePicker.SelectedDate.GetValueOrDefault();
                 selectedEmployee.ProfilePicture = ProfilePictureUrlTextBlock.Text;
 
@@ -201,11 +200,12 @@ namespace WPFApp
                     }
 
                     // Validate Salary
-                    if (selectedEmployee.Salary <= 0)
+                    if (string.IsNullOrWhiteSpace(SalaryTextBox.Text) || !double.TryParse(SalaryTextBox.Text, out double parsedSalary) || parsedSalary <= 0)
                     {
-                        MessageBox.Show("Nhập lương lớn hơn 0", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Lương phải là một số hợp lệ lớn hơn 0", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
+                    selectedEmployee.Salary = parsedSalary;
 
                     // Validate Date of Birth
                     if (selectedEmployee.DateOfBirth >= DateTime.Today)
