@@ -58,11 +58,29 @@ namespace WPFApp
                 LoadLeaveRequests();
                 LoadSalaryExpense();
                 LoadNotifications();
+                LoadAttendanceData();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Có lỗi xảy ra khi tải dữ liệu: {ex.Message}", "Lỗi",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void LoadAttendanceData()
+        {
+            using (var context = new FuhrmContext())
+            {
+                AttendanceReportDateTextBlock.Text = $"Date: {DateTime.Now:dd/MM/yyyy}";
+
+                var today = DateOnly.FromDateTime(DateTime.Now);
+
+                var totalEmployees = _employeeRepository.GetAllEmployees().Count();
+                var presentCount = context.Attendances.Count(a => a.Date == today && a.Status == "Present");
+                var absentCount = totalEmployees - presentCount;
+
+                PresentCountTextBlock.Text = presentCount.ToString();
+                AbsentCountTextBlock.Text = absentCount.ToString();
             }
         }
 

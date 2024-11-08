@@ -50,10 +50,10 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="30">
                     <TextBlock Text="Dashboard" 
-                             FontSize="28" 
-                             FontWeight="Bold" 
-                             Margin="10,0,0,30" 
-                             Foreground="#2C3E50"/>
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Margin="10,0,0,30" 
+                               Foreground="#2C3E50"/>
 
                     <!-- Statistics overview -->
                     <WrapPanel>
@@ -61,9 +61,9 @@
                             <StackPanel>
                                 <TextBlock Text="Total Employee" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalEmployeesTextBlock" 
-                                         FontSize="24" 
-                                         FontWeight="Bold" 
-                                         Foreground="#4A90E2"/>
+                                           FontSize="24" 
+                                           FontWeight="Bold" 
+                                           Foreground="#4A90E2"/>
                                 <lvc:PieChart x:Name="EmployeesByDepartmentPieChart"
                                               LegendLocation="Bottom"
                                               InnerRadius="0"
@@ -90,12 +90,26 @@
                                 <StackPanel>
                                     <TextBlock Text="Absent Request" Style="{StaticResource CardTitleStyle}"/>
                                     <TextBlock x:Name="PendingLeaveRequestsTextBlock" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           Foreground="#E74C3C"/>
+                                               FontSize="24" 
+                                               FontWeight="Bold" 
+                                               Foreground="#E74C3C"/>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
+
+                        <Border Style="{StaticResource InfoCardStyle}" Width="485" Height="400">
+                            <StackPanel>
+                                <TextBlock Text="Attendance Report" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="AttendanceReportDateTextBlock" 
+                                           FontSize="14" 
+                                           Foreground="Gray" 
+                                           Margin="0,10,0,30"/>
+                                <TextBlock Text="Number of Present:" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="PresentCountTextBlock" FontSize="24" FontWeight="Bold" Foreground="#2ECC71" Margin="0,10,0,30"/>
+                                <TextBlock Text="Number of Absent:" Style="{StaticResource CardTitleStyle}"/>
+                                <TextBlock x:Name="AbsentCountTextBlock" FontSize="24" FontWeight="Bold" Foreground="#E74C3C"/>
+                            </StackPanel>
+                        </Border>
                     </WrapPanel>
 
 
