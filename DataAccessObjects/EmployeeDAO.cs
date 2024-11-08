@@ -73,10 +73,12 @@ namespace DataAccessObjects
                 existingEmployee.PositionId = employee.PositionId;
                 existingEmployee.Salary = employee.Salary;
                 existingEmployee.StartDate = employee.StartDate;
+                existingEmployee.ProfilePicture = employee.ProfilePicture; // Cập nhật đường dẫn ảnh
 
                 _context.SaveChanges();
             }
         }
+
 
 
         public void DeleteEmployee(int employeeId)
