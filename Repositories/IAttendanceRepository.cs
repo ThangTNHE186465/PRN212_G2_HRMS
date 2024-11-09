@@ -8,5 +8,5 @@ public interface IAttendanceRepository
     void RemoveAttendance(Attendance attendance);
     void UpdateAttendance(Attendance attendance);
     void UpdateAttendanceStatus(int employeeId, string status);
-    void CheckoutAttendance(int employeeId); // Thêm phương thức mới
+    void CheckoutAttendance(int employeeId); 
 }

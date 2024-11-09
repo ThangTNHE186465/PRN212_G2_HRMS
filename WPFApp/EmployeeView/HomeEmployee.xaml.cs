@@ -38,7 +38,6 @@ namespace WPFApp
                 var employee = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
                 if (employee != null)
                 {
-                    // Hiển thị thông tin nhân viên lên giao diện
                     WelcomeTextBlock.Text = $"Hello, {employee.FullName}";
                     NameTextBox.Text = employee.FullName;
                     BirthTextBox.Text = employee.DateOfBirth.ToString("d", CultureInfo.CurrentCulture);
@@ -50,7 +49,6 @@ namespace WPFApp
                     PositionTextBox.Text = employee.Position?.PositionName ?? "N/A";
                     SalaryTextBox.Text = employee.Salary.ToString( CultureInfo.CurrentCulture);
 
-                    // Hiển thị ảnh đại diện
                     if (!string.IsNullOrEmpty(employee.ProfilePicture))
                     {
                         try
@@ -60,12 +58,12 @@ namespace WPFApp
                         catch (Exception ex)
                         {
                             MessageBox.Show($"Error loading profile picture: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu có lỗi
+                            ProfileImage.Source = null; 
                         }
                     }
                     else
                     {
-                        ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu không có ảnh
+                        ProfileImage.Source = null; 
                     }
                 }
                 else
@@ -81,14 +79,13 @@ namespace WPFApp
 
         private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            // Giả sử bạn đã có đối tượng `Employee` hiện tại
             var currentAccount = SessionManager.CurrentAccount;
             if (currentAccount != null)
             {
                 var em = employeeRepository.GetEmployeeByAccountId(currentAccount.AccountId);
                 EditProfileWindow editProfileWindow = new EditProfileWindow(em);
                 editProfileWindow.Show();
-                this.Close(); // Tùy chọn đóng cửa sổ HomeEmployee nếu cần
+                this.Close(); 
             }
             else
             {

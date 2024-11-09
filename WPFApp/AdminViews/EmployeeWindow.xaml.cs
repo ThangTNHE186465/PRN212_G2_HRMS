@@ -27,8 +27,8 @@ namespace WPFApp
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly ISalaryRepository _salaryRepository;
+        private readonly EmployeeRepository _employeeRepository;
+        private readonly SalaryRepository _salaryRepository;
 
         public EmployeeWindow()
         {

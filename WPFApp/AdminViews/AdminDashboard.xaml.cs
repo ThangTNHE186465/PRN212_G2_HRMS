@@ -17,8 +17,6 @@ namespace WPFApp
     public partial class AdminDashboard : Window
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly DispatcherTimer _refreshTimer;
-        private ObservableCollection<DepartmentStats> _departmentStats;
 
         public class DepartmentStats
         {
@@ -35,16 +33,6 @@ namespace WPFApp
             var context = new FuhrmContext();
             var employeeDAO = new EmployeeDAO(context);
             _employeeRepository = new EmployeeRepository(employeeDAO);
-            
-            _departmentStats = new ObservableCollection<DepartmentStats>();
-            //EmployeesByDepartmentItemsControl.ItemsSource = _departmentStats;
-            
-            _refreshTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMinutes(5)
-            };
-            _refreshTimer.Tick += (s, e) => LoadDashboardData();
-            _refreshTimer.Start();
 
             LoadDashboardData();
         }
@@ -103,10 +91,8 @@ namespace WPFApp
                     Count = group.Count(),
                 }).ToList();
 
-            // Clear previous series if any
             EmployeesByDepartmentPieChart.Series.Clear();
 
-            // Create series for each department and add to the pie chart
             foreach (var departmentData in employeesByDepartment)
             {
                 double percentage = departmentData.Count / (double)totalEmployees * 100;
@@ -159,12 +145,5 @@ namespace WPFApp
                 NotificationsItemsControl.ItemsSource = recentNotifications;
             }
         }
-        
-        protected override void OnClosed(EventArgs e)
-        {
-            _refreshTimer.Stop();
-            base.OnClosed(e);
-        }
-
     }
 }

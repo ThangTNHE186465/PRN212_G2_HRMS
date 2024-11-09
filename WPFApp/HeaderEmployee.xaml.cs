@@ -29,10 +29,9 @@ namespace WPFApp
         {
             InitializeComponent();
             DataContext = this;
-            _employeeRepository = new EmployeeRepository(new EmployeeDAO(new FuhrmContext())); // Initialize the repository
+            _employeeRepository = new EmployeeRepository(new EmployeeDAO(new FuhrmContext()));
             Loaded += SideMenuEmployee_Loaded;
 
-            // Load the employee avatar when the control is initialized
             LoadEmployeeAvatar();
         }
 
@@ -53,14 +52,12 @@ namespace WPFApp
                 }
                 catch (Exception ex)
                 {
-                    // Ghi nhật ký lỗi thay vì hiển thị hộp thoại nếu cần
                     Console.WriteLine($"Lỗi khi tải ảnh đại diện: {ex.Message}");
                     ProfileAvatar.Source = new BitmapImage(new Uri("/Resources/default_avatar.png", UriKind.Relative));
                 }
             }
             else
             {
-                // Hiển thị ảnh mặc định nếu không có ảnh đại diện
                 ProfileAvatar.Source = new BitmapImage(new Uri("/Resources/default_avatar.png", UriKind.Relative));
             }
         }
@@ -76,11 +73,11 @@ namespace WPFApp
             Window currentWindow = Window.GetWindow(this);
             if (currentWindow != null)
             {
-                CurrentWindowName = currentWindow.Title; // Set the window title as the initial window name
+                CurrentWindowName = currentWindow.Title; 
             }
             else
             {
-                CurrentWindowName = "Unknown Window"; // Fallback value if the window is not found
+                CurrentWindowName = "Unknown Window"; 
             }
         }
 
@@ -136,14 +133,11 @@ namespace WPFApp
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            // Clear the session
             SessionManager.CurrentAccount = null;
 
-            // Redirect to login screen
             LoginScreen loginScreen = new LoginScreen();
             loginScreen.Show();
 
-            // Close the current window
             Window.GetWindow(this).Close();
         }
     }

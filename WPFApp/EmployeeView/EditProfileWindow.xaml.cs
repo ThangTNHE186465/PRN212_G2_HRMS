@@ -36,14 +36,13 @@ namespace WPFApp
                 AddressTextBox.Text = _currentEmployee.Address;
                 PhoneTextBox.Text = _currentEmployee.PhoneNumber;
 
-                // Hiển thị avatar
                 if (!string.IsNullOrEmpty(_currentEmployee.ProfilePicture))
                 {
                     ProfileImage.Source = new BitmapImage(new Uri(_currentEmployee.ProfilePicture, UriKind.RelativeOrAbsolute));
                 }
                 else
                 {
-                    ProfileImage.Source = null; // Hiển thị ảnh mặc định nếu không có ảnh
+                    ProfileImage.Source = null; 
                 }
             }
             else
@@ -63,7 +62,7 @@ namespace WPFApp
             {
                 string filePath = openFileDialog.FileName;
                 ProfileImage.Source = new BitmapImage(new Uri(filePath, UriKind.Absolute));
-                _currentEmployee.ProfilePicture = filePath; // Cập nhật đường dẫn ảnh vào đối tượng
+                _currentEmployee.ProfilePicture = filePath; 
             }
         }
 
@@ -71,10 +70,8 @@ namespace WPFApp
         {
             if (_currentEmployee != null)
             {
-                // Kiểm tra dữ liệu đầu vào trước khi lưu
                 try
                 {
-                    // Validate Full Name
                     if (string.IsNullOrWhiteSpace(FullNameTextBox.Text))
                     {
                         MessageBox.Show("Tên không được để trống", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -87,14 +84,12 @@ namespace WPFApp
                         return;
                     }
 
-                    // Validate Phone Number
                     if (!Regex.IsMatch(PhoneTextBox.Text, @"^\d{10}$"))
                     {
                         MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
 
-                    // Validate Date of Birth
                     if (DateOfBirthPicker.SelectedDate >= DateTime.Today)
                     {
                         MessageBox.Show("Ngày sinh không hợp lệ. Vui lòng chọn ngày sinh nhỏ hơn ngày hiện tại.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -107,7 +102,6 @@ namespace WPFApp
                         return;
                     }
 
-                    // Cập nhật thông tin từ giao diện vào đối tượng _currentEmployee
                     _currentEmployee.FullName = FullNameTextBox.Text;
                     _currentEmployee.DateOfBirth = DateOfBirthPicker.SelectedDate ?? _currentEmployee.DateOfBirth;
                     _currentEmployee.Gender = GenderComboBox.Text;
@@ -118,10 +112,9 @@ namespace WPFApp
                     _employeeRepository.UpdateEmployee(_currentEmployee);
                     MessageBox.Show("Profile updated successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Quay lại trang HomeEmployee và tải dữ liệu mới
                     HomeEmployee homeEmployeeWindow = new HomeEmployee();
                     homeEmployeeWindow.Show();
-                    this.Close(); // Đóng cửa sổ EditProfileWindow hiện tại
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +133,7 @@ namespace WPFApp
             // Trở về trang HomeEmployee
             HomeEmployee homeEmployeeWindow = new HomeEmployee();
             homeEmployeeWindow.Show();
-            this.Close(); // Đóng cửa sổ EditProfileWindow hiện tại
+            this.Close(); 
         }
 
     }

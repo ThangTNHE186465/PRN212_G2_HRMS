@@ -57,7 +57,6 @@ namespace WPFApp
         {
             if (e.Key == Key.Enter)
             {
-                // Trigger the login button click
                 btnLogin_Click(this, new RoutedEventArgs());
             }
         }

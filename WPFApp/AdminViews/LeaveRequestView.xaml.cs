@@ -47,7 +47,7 @@ namespace WPFApp
             if (LeaveRequestDataGrid.SelectedItem is LeaveRequest selectedLeave)
             {
                 int leaveRequestID = selectedLeave.LeaveRequestId;
-                string newStatus = button.Content.ToString(); // Lấy nội dung của nút (Approved hoặc Rejected)
+                string newStatus = button.Content.ToString();
                 int leaveRequestId = leaveRequestID;
                 var dao = new LeaveRequestDAO();
 

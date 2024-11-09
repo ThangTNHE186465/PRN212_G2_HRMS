@@ -39,7 +39,6 @@ namespace WPFApp
             {
                 var newPositionName = PositionNameTextBox.Text;
 
-                // Kiểm tra tên chức vụ đã tồn tại chưa (ngoại trừ chức vụ hiện tại)
                 if (_positionRepository.DoesPositionExist(newPositionName) && selectedPosition.PositionName != newPositionName)
                 {
                     MessageBox.Show("Tên chức vụ đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -50,13 +49,10 @@ namespace WPFApp
 
                 try
                 {
-                    // Lưu thay đổi vào cơ sở dữ liệu
                     _positionRepository.UpdatePosition(selectedPosition);
 
-                    // Cập nhật lại danh sách chức vụ trong DataGrid
                     LoadPositions();
 
-                    // Thông báo thành công
                     MessageBox.Show("Thông tin chức vụ đã được lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)

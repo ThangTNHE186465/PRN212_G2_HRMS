@@ -129,16 +129,16 @@ namespace WPFApp
 
                         Employee employee = new Employee
                         {
-                            FullName = "Default Name", // Set default or required properties
-                            DateOfBirth = new DateTime(2000, 1, 1), // Set default or required properties
-                            Gender = "Not Specified", // Set default or required properties
-                            Address = "Default Address", // Set default or required properties
-                            PhoneNumber = "0000000000", // Set default or required properties
-                            DepartmentId = 1, // Set default or required properties
-                            PositionId = 1, // Set default or required properties
-                            Salary = 0, // Set default or required properties
-                            StartDate = DateTime.Now, // Set default or required properties
-                            AccountId = account.AccountId // Associate with the created account
+                            FullName = "Default Name", 
+                            DateOfBirth = new DateTime(2000, 1, 1),
+                            Gender = "Not Specified", 
+                            Address = "Default Address", 
+                            PhoneNumber = "0000000000", 
+                            DepartmentId = 1, 
+                            PositionId = 1, 
+                            Salary = 0,
+                            StartDate = DateTime.Now, 
+                            AccountId = account.AccountId 
                         };
                         employeeRepository.AddEmployee(employee);
 

@@ -15,8 +15,8 @@ namespace WPFApp
         {
             InitializeComponent();
             _departmentRepository = new DepartmentRepository();
-            CreateDatePicker.SelectedDate = DateTime.Now.Date; // Set today's date
-            CreateDatePicker.IsEnabled = false; // Disable date picker to prevent changes
+            CreateDatePicker.SelectedDate = DateTime.Now.Date; 
+            CreateDatePicker.IsEnabled = false; 
             LoadDepartments();
         }
 
@@ -55,7 +55,6 @@ namespace WPFApp
         {
             var departmentName = DepartmentNameTextBox.Text;
 
-            // Check if the department name already exists
             if (_departmentRepository.DoesDepartmentExist(departmentName))
             {
                 MessageBox.Show("Tên phòng ban đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -65,7 +64,7 @@ namespace WPFApp
             var department = new Department
             {
                 DepartmentName = departmentName,
-                CreateDate = DateTime.Now.Date // Automatically set to today
+                CreateDate = DateTime.Now.Date 
             };
 
             _departmentRepository.AddDepartment(department);
@@ -79,7 +78,6 @@ namespace WPFApp
             {
                 var newDepartmentName = DepartmentNameTextBox.Text;
 
-                // Check if the new department name already exists (except for the current department)
                 if (_departmentRepository.DoesDepartmentExist(newDepartmentName) && selectedDepartment.DepartmentName != newDepartmentName)
                 {
                     MessageBox.Show("Tên phòng ban đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);

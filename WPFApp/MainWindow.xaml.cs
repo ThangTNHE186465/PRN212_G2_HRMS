@@ -25,10 +25,8 @@ namespace WPFApp
         {
             LeaveRequestRepository leaveRepository = new LeaveRequestRepository();
 
-            // Sử dụng trực tiếp employeeID để lấy danh sách yêu cầu nghỉ phép
             var leaveRequests = leaveRepository.GetLeaveRequestsByEmployeeID(employeeID);
 
-            // Gán dữ liệu cho ViewLeaveRequest
             ViewLeaveRequest.ItemsSource = leaveRequests;
 
 

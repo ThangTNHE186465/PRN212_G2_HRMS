@@ -53,36 +53,36 @@ namespace WPFApp
                                     MessageBox.Show("Yêu cầu nghỉ phép đã được gửi thành công!");
                                     MainWindow mainWindow = new MainWindow(_employeeID);
                                     mainWindow.Show();
-                                    this.Close(); // Chỉ đóng cửa sổ khi gửi thành công
+                                    this.Close(); 
                                 }
                                 else
                                 {
                                     MessageBox.Show("Số ngày nghỉ trong tháng không được vượt quá 4 ngày. ");
-                                    return; // Dừng lại sau khi hiển thị thông báo lỗi, không đóng ứng dụng
+                                    return; 
                                 }
                             }
                             else
                             {
                                 MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
-                                return; // Dừng lại sau khi hiển thị thông báo lỗi
+                                return; 
                             }
                         }
                         else
                         {
                             MessageBox.Show("Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.");
-                            return; // Dừng lại sau khi hiển thị thông báo lỗi
+                            return; 
                         }
                     }
                     else
                     {
                         MessageBox.Show("Vui lòng chọn ngày bắt đầu và ngày kết thúc.");
-                        return; // Dừng lại sau khi hiển thị thông báo lỗi
+                        return; 
                     }
                 }
                 else
                 {
                     MessageBox.Show("Không tìm thấy nhân viên cho tài khoản hiện tại.");
-                    return; // Dừng lại sau khi hiển thị thông báo lỗi
+                    return; 
                 }
             }
             catch (Exception ex)

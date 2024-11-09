@@ -57,7 +57,7 @@
 
                     <!-- Statistics overview -->
                     <WrapPanel>
-                        <Border Style="{StaticResource InfoCardStyle}" Width="650" Height="400">
+                        <Border Style="{StaticResource InfoCardStyle}" Width="600" Height="400">
                             <StackPanel>
                                 <TextBlock Text="Total Employee" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="TotalEmployeesTextBlock" 
@@ -97,7 +97,7 @@
                             </Border>
                         </StackPanel>
 
-                        <Border Style="{StaticResource InfoCardStyle}" Width="485" Height="400">
+                        <Border Style="{StaticResource InfoCardStyle}" Width="470" Height="400">
                             <StackPanel>
                                 <TextBlock Text="Attendance Report" Style="{StaticResource CardTitleStyle}"/>
                                 <TextBlock x:Name="AttendanceReportDateTextBlock" 
