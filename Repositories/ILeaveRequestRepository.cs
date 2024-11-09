@@ -12,9 +12,10 @@ namespace Repositories
         List<LeaveRequest> getAllLeaveRequest();
         LeaveRequest getLeaveRequest(int id);
         void ChangeStatus(int leaveRequestId, string newStatus);
-
         void AddLeaveRequest(LeaveRequest leaveRequest);
         Employee GetEmployeeByAccountId(int accountId);
         List<LeaveRequest> GetLeaveRequestsByEmployeeID(int employeeId);
+        int GetTotalLeaveDaysInMonth(int employeeId, int year, int month); // Thêm dòng này
     }
+
 }

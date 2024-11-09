@@ -29,6 +29,9 @@ namespace Repositories
         public List<LeaveRequest> GetLeaveRequestsByEmployeeID(int employeeId)
        => leaveRequestDAO.GetLeaveRequestsByEmployeeID((int)employeeId);
 
+        public int GetTotalLeaveDaysInMonth(int employeeId, int year, int month)
+    => leaveRequestDAO.GetTotalLeaveDaysInMonth(employeeId, year, month);
+
 
     }
 }

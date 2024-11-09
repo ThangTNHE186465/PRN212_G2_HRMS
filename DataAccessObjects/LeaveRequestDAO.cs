@@ -80,6 +80,27 @@ namespace DataAccessObjects
             using var _context = new FuhrmContext();
             return _context.Employees.FirstOrDefault(e => e.AccountId == accountId);
         }
+        public int GetTotalLeaveDaysInMonth(int employeeId, int year, int month)
+        {
+            using var context = new FuhrmContext();
+            try
+            {
+                // Chuyển dữ liệu sang bộ nhớ với AsEnumerable()
+                var leaveRequests = context.LeaveRequests
+                    .Where(lr => lr.EmployeeId == employeeId &&
+                                 lr.StartDate.Year == year &&
+                                 lr.StartDate.Month == month)
+                    .AsEnumerable(); // Thêm AsEnumerable() để chuyển sang bộ nhớ
+
+                int totalDays = leaveRequests.Sum(lr => (lr.EndDate.ToDateTime(TimeOnly.MinValue) - lr.StartDate.ToDateTime(TimeOnly.MinValue)).Days + 1);
+
+                return totalDays;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error calculating total leave days for employee {employeeId}: {ex.Message}", ex);
+            }
+        }
 
     }
 }

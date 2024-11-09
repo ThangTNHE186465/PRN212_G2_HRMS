@@ -15,55 +15,84 @@ namespace WPFApp
 
         private void btnSubmitLeaveRequest_Click(object sender, RoutedEventArgs e)
         {
-            var leaveRequestRepo = new LeaveRequestRepository();
-
-            if (_employeeID != null)
+            try
             {
-                if (StartDate.SelectedDate.HasValue && EndDate.SelectedDate.HasValue)
+                var leaveRequestRepo = new LeaveRequestRepository();
+
+                if (_employeeID != null)
                 {
-                    var today = DateOnly.FromDateTime(DateTime.Today);
-                    var selectedStartDate = DateOnly.FromDateTime(StartDate.SelectedDate.Value);
-                    var selectedEndDate = DateOnly.FromDateTime(EndDate.SelectedDate.Value);
-
-                    if (selectedStartDate >= today)
+                    if (StartDate.SelectedDate.HasValue && EndDate.SelectedDate.HasValue)
                     {
-                        if (selectedEndDate > selectedStartDate)
+                        var today = DateOnly.FromDateTime(DateTime.Today);
+                        var selectedStartDate = DateOnly.FromDateTime(StartDate.SelectedDate.Value);
+                        var selectedEndDate = DateOnly.FromDateTime(EndDate.SelectedDate.Value);
+
+                        if (selectedStartDate >= today)
                         {
-                            var leaveRequest = new LeaveRequest
+                            if (selectedEndDate > selectedStartDate)
                             {
-                                EmployeeId = _employeeID,
-                                LeaveType = LeaveType.Text,
-                                StartDate = selectedStartDate,
-                                EndDate = selectedEndDate,
-                                Status = "Pending"
-                            };
+                                int requestedDays = (selectedEndDate.ToDateTime(TimeOnly.MinValue) - selectedStartDate.ToDateTime(TimeOnly.MinValue)).Days + 1;
 
-                            leaveRequestRepo.AddLeaveRequest(leaveRequest);
+                                int currentMonth = selectedStartDate.Month;
+                                int currentYear = selectedStartDate.Year;
+                                int totalLeaveDaysInMonth = leaveRequestRepo.GetTotalLeaveDaysInMonth(_employeeID, currentYear, currentMonth);
 
-                            MessageBox.Show("Yêu cầu nghỉ phép đã được gửi thành công!");
-                            MainWindow mainWindow = new MainWindow(_employeeID);
-                            mainWindow.Show();
-                            this.Close();
+                                if (totalLeaveDaysInMonth + requestedDays <= 4)
+                                {
+                                    var leaveRequest = new LeaveRequest
+                                    {
+                                        EmployeeId = _employeeID,
+                                        LeaveType = LeaveType.Text,
+                                        StartDate = selectedStartDate,
+                                        EndDate = selectedEndDate,
+                                        Status = "Pending"
+                                    };
+
+                                    leaveRequestRepo.AddLeaveRequest(leaveRequest);
+
+                                    MessageBox.Show("Yêu cầu nghỉ phép đã được gửi thành công!");
+                                    MainWindow mainWindow = new MainWindow(_employeeID);
+                                    mainWindow.Show();
+                                    this.Close(); // Chỉ đóng cửa sổ khi gửi thành công
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Số ngày nghỉ trong tháng không được vượt quá 4 ngày. ");
+                                    return; // Dừng lại sau khi hiển thị thông báo lỗi, không đóng ứng dụng
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                                return; // Dừng lại sau khi hiển thị thông báo lỗi
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                            MessageBox.Show("Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.");
+                            return; // Dừng lại sau khi hiển thị thông báo lỗi
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.");
+                        MessageBox.Show("Vui lòng chọn ngày bắt đầu và ngày kết thúc.");
+                        return; // Dừng lại sau khi hiển thị thông báo lỗi
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vui lòng chọn ngày bắt đầu và ngày kết thúc.");
+                    MessageBox.Show("Không tìm thấy nhân viên cho tài khoản hiện tại.");
+                    return; // Dừng lại sau khi hiển thị thông báo lỗi
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Không tìm thấy nhân viên cho tài khoản hiện tại.");
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
             }
         }
+
+
+
+
     }
 }
