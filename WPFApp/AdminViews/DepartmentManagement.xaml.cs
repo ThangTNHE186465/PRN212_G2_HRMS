@@ -15,8 +15,11 @@ namespace WPFApp
         {
             InitializeComponent();
             _departmentRepository = new DepartmentRepository();
+            CreateDatePicker.SelectedDate = DateTime.Now.Date; // Set today's date
+            CreateDatePicker.IsEnabled = false; // Disable date picker to prevent changes
             LoadDepartments();
         }
+
 
         private void LoadDepartments()
         {
@@ -38,6 +41,7 @@ namespace WPFApp
                 Clear();
             }
         }
+
 
         private void Clear()
         {
@@ -61,12 +65,13 @@ namespace WPFApp
             var department = new Department
             {
                 DepartmentName = departmentName,
-                CreateDate = CreateDatePicker.SelectedDate
+                CreateDate = DateTime.Now.Date // Automatically set to today
             };
 
             _departmentRepository.AddDepartment(department);
             LoadDepartments();
         }
+
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
